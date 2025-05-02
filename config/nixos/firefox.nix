@@ -68,10 +68,6 @@
                     install_url = "https://addons.mozilla.org/firefox/downloads/latest/nixos-packages-search-engine/latest.xpi";
                     installation_mode = "force_installed";
                 };
-                "simple-tab-groups@drive4ik" = {
-                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-tab-groups/latest.xpi";
-                    installation_mode = "force_installed";
-                };
             };
         };
     };
