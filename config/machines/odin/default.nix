@@ -32,6 +32,7 @@
             discord
             imagemagick
             gcc14
+            screenshot
         ];
 
         wayland.windowManager.hyprland.settings = {
