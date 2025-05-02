@@ -60,12 +60,7 @@
         extensions = with pkgs.vscode-extensions; [
             bbenoist.nix
             gruntfuggly.todo-tree
-            ms-vscode.cpptools
-            inputs.nix-vscode-extensions.extensions.x86_64-linux.vscode-marketplace.ms-vscode.cpptools-themes
-            golang.go
             tamasfe.even-better-toml
-            inputs.nix-vscode-extensions.extensions.x86_64-linux.vscode-marketplace.basdp.language-gas-x86
-            inputs.nix-vscode-extensions.extensions.x86_64-linux.vscode-marketplace.maziac.asm-code-lens
         ];
     };
 }
