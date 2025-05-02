@@ -11,8 +11,6 @@
             };
 
             tab_size = 4;
-            buffer_font_size = 15;
-            buffer_font_family = "RandyGG";
 
             format_on_save = "on";
 
