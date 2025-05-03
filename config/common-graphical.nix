@@ -43,6 +43,13 @@
     programs.firefox.enable = true;
 
     home-manager.users.wux = {
+        home.packages = with pkgs; [
+            spotify
+            discord
+            gimp
+            screenshot
+        ];
+
         wayland.windowManager.hyprland.enable = true;
         programs.hyprlock.enable = true;
         systemd.user.sessionVariables = config.home-manager.users.wux.home.sessionVariables;

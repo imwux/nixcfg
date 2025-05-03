@@ -25,14 +25,6 @@
     services.playerctld.enable = true;
 
     home-manager.users.wux = {
-        home.packages = with pkgs; [
-            spotify
-            discord
-            imagemagick
-            gcc14
-            screenshot
-        ];
-
         wayland.windowManager.hyprland.settings = {
             exec-once = [ "${inputs.wuxs-ui.packages.${system}.default}/bin/wuxs-ui" ];
 

@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
     imports = [
         ./nixos/unfree.nix
     ];
@@ -48,6 +48,10 @@
     };
 
     home-manager.users.wux = {
+        home.packages = with pkgs; [
+            imagemagick
+        ];
+
         programs.bash.enable = true;
         programs.git.enable = true;
         programs.neovim.enable = true;

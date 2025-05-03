@@ -30,20 +30,8 @@
 
     home-manager.users.wux = {
         home.packages = with pkgs; [
-            spotify
-            discord
-            imagemagick
             prismlauncher
-
             whatsapp-for-linux
-
-            gcc14
-            go
-
-            clang
-            llvmPackages.bintools
-
-            rustup
         ];
 
         wayland.windowManager.hyprland.settings = {
