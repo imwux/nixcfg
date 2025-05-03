@@ -6,8 +6,6 @@
 
     time.timeZone = "Europe/Helsinki";
 
-    networking.hostName = "HQ";
-
     networking.networkmanager.enable = true;
     users.users.wux.extraGroups = [ "networkmanager" ];
 
