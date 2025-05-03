@@ -47,6 +47,8 @@
             spotify
             discord
             gimp
+            vlc
+
             screenshot
         ];
 
