@@ -50,6 +50,7 @@
             vlc
 
             screenshot
+            screenrecord
         ];
 
         wayland.windowManager.hyprland.enable = true;
