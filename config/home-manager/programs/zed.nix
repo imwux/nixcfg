@@ -2,7 +2,7 @@
 {
     programs.zed-editor = {
         package = pkgs.unstable.zed-editor;
-        extensions = [ "nix" "make" "vscode_dark_modern" "toml" "scheme" "assembly" "meson"];
+        extensions = [ "nix" "make" "toml" "scheme" "assembly" "meson"];
         userSettings = {
             theme = {
                 mode = "dark";
