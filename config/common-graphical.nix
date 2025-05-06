@@ -49,6 +49,9 @@
             gimp
             vlc
 
+            coppwr
+            meld
+
             screenshot
             screenrecord
         ];
