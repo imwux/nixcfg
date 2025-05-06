@@ -1,14 +1,20 @@
-{ lib, config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 {
     imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
-    boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+    boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
     boot.initrd.kernelModules = [];
     boot.kernelModules = [ "kvm-amd" ];
     boot.extraModulePackages = [];
 
-    environment.systemPackages = [ pkgs.sbctl ];
+    environment.systemPackages = with pkgs; [ sbctl ];
+
+    boot.loader.grub.enable = lib.mkForce false;
     boot.loader.systemd-boot.enable = lib.mkForce false;
+
+    boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.efi.efiSysMountPoint = "/boot";
+
     boot.lanzaboote = {
         enable = true;
         pkiBundle = "/etc/secureboot";
@@ -16,16 +22,16 @@
 
     fileSystems = {
         "/" = {
-            device = "/dev/disk/by-uuid/cad90b3a-bef4-465b-827f-667e5128af9b";
+            device = "/dev/disk/by-uuid/39bcd032-9374-460f-9a1f-753fc80e61d6";
             fsType = "ext4";
         };
         "/boot" = {
-            device = "/dev/disk/by-uuid/26C8-1EEC";
+            device = "/dev/disk/by-uuid/B0E0-9ADD";
             fsType = "vfat";
-            options = [ "fmask=0077" "dmask=0077" ];
+            options = [ "fmask=0022" "dmask=0022" ];
         };
         "/nix" = {
-            device = "/dev/disk/by-uuid/84fe2783-8bea-4766-b6f2-c62d7ef12abf";
+            device = "/dev/disk/by-uuid/a66dad56-305a-4398-a4df-7397985ca0f2";
             fsType = "ext4";
             neededForBoot = true;
             options = [ "noatime" ];
@@ -33,7 +39,7 @@
     };
 
     swapDevices = [
-        { device = "/dev/disk/by-uuid/7c284ecd-ca13-48fd-ac14-1167b3017c40"; }
+        { device = "/dev/disk/by-uuid/a62c31d9-80b4-4894-b5e7-e91893c2b599"; }
     ];
 
     networking.useDHCP = lib.mkDefault true;
