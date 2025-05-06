@@ -29,14 +29,30 @@
         platformTheme = "gnome";
     };
 
+    nixpkgs.config.pulseaudio = true;
     services.pipewire = {
         enable = true;
         alsa.enable = true;
         alsa.support32Bit = true;
         pulse.enable = true;
         jack.enable = true;
+
+        extraConfig.pipewire = {
+            "10-clock-rate" = {
+                "context.properties" = {
+                    "default.clock.rate" = 192000;
+                };
+            };
+        };
+
+        extraConfig.client = {
+            "10-no-resample" = {
+                "stream.properties" = {
+                    "resample.disable" = true;
+                };
+            };
+        };
     };
-    nixpkgs.config.pulseaudio = true;
 
     services.gvfs.enable = true; # Needed for Astal (UI)
 
