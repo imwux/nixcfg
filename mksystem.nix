@@ -14,8 +14,6 @@ inputs.nixpkgs.lib.nixosSystem {
         ./config/machines/${id}
 
         {
-            imports = builtins.attrValues outputs.nixosModules;
-
             nixpkgs.overlays = builtins.attrValues outputs.overlays;
 
             networking.hostName = name;

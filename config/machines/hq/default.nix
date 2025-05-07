@@ -4,6 +4,20 @@
         ../../common-graphical.nix
     ];
 
+    systemd.mounts = [{
+        description = "Mount balder";
+        what = "/dev/disk/by-label/balder";
+        where = "/run/balder";
+        type = "ext4";
+        options = "nofail,user";
+    }];
+
+    systemd.automounts = [{
+        description = "Automount for balder";
+        where = "/run/balder";
+        wantedBy = [ "multi-user.target" ];
+    }];
+
     time.timeZone = "Europe/Helsinki";
 
     networking.networkmanager.enable = true;
