@@ -36,22 +36,6 @@
         alsa.support32Bit = true;
         pulse.enable = true;
         jack.enable = true;
-
-        extraConfig.pipewire = {
-            "10-clock-rate" = {
-                "context.properties" = {
-                    "default.clock.rate" = 192000;
-                };
-            };
-        };
-
-        extraConfig.client = {
-            "10-no-resample" = {
-                "stream.properties" = {
-                    "resample.disable" = true;
-                };
-            };
-        };
     };
 
     services.gvfs.enable = true; # Needed for Astal (UI)
