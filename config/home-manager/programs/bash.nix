@@ -8,6 +8,8 @@
             ll = "ls -l";
             lla = "ls -la";
 
+            grep = "grep --color=auto";
+
             # Rebuild NixOS
             rb = "sudo nixos-rebuild switch --flake /home/wux/nixcfg";
 
