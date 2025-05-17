@@ -9,7 +9,7 @@
         what = "/dev/disk/by-label/balder";
         where = "/run/balder";
         type = "ext4";
-        options = "nofail,user";
+        options = "nofail";
     }];
 
     systemd.automounts = [{
@@ -17,6 +17,15 @@
         where = "/run/balder";
         wantedBy = [ "multi-user.target" ];
     }];
+
+    networking.firewall = {
+        allowedUDPPorts = [
+            7707 # Project Wild Server
+        ];
+        allowedTCPPorts = [
+            7707 # Project Wild Server
+        ];
+    };
 
     time.timeZone = "Europe/Helsinki";
 
