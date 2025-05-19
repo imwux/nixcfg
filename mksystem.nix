@@ -27,7 +27,7 @@ inputs.nixpkgs.lib.nixosSystem {
                 users.wux = {
                     programs.home-manager.enable = true;
                     imports = [ ./config/home-manager ];
-                    home.stateVersion = "24.11";
+                    home.stateVersion = "25.05";
                 };
             };
         }
