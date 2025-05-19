@@ -16,12 +16,15 @@
     fonts.packages = with pkgs; [ dejavu_fonts ];
 
     programs.hyprland.enable = true;
+    programs.hyprland.withUWSM = true;
     programs.hyprlock.enable = true;
     environment.sessionVariables = {
         NIXOS_OZONE_WL = 1;
         WLR_NO_HARDWARE_CURSORS = 1;
         NIX_SHELL_PRESERVE_PROMPT = 1;
     };
+
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
     qt = {
         enable = true;

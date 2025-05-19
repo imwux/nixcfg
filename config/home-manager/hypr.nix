@@ -3,6 +3,8 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
     home.packages = with pkgs; [ cliphist wl-clipboard material-symbols lexend ];
 
     wayland.windowManager.hyprland = {
+        systemd.enable = false;
+
         settings = {
             exec-once = [
                 "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store"
