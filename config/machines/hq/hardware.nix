@@ -10,37 +10,45 @@
     environment.systemPackages = with pkgs; [ sbctl ];
 
     boot.loader.grub.enable = lib.mkForce false;
-    boot.loader.systemd-boot.enable = lib.mkForce false;
+    boot.loader.systemd-boot.enable = lib.mkForce true;
 
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot";
 
-    boot.lanzaboote = {
-        enable = true;
-        pkiBundle = "/etc/secureboot";
-    };
+    # Setup when secure boot is actually needed
+    #boot.loader.systemd-boot.enable = lib.mkForce false;
+    #boot.lanzaboote = {
+    #    enable = true;
+    #    pkiBundle = "/etc/secureboot";
+    #};
 
     fileSystems = {
-        "/" = {
-            device = "/dev/disk/by-uuid/39bcd032-9374-460f-9a1f-753fc80e61d6";
-            fsType = "ext4";
-        };
         "/boot" = {
-            device = "/dev/disk/by-uuid/B0E0-9ADD";
+            device = "/dev/disk/by-uuid/7676-8D46";
             fsType = "vfat";
             options = [ "fmask=0022" "dmask=0022" ];
         };
-        "/nix" = {
-            device = "/dev/disk/by-uuid/a66dad56-305a-4398-a4df-7397985ca0f2";
-            fsType = "ext4";
+        "/" = {
+            device = "/dev/disk/by-uuid/166e20da-21a5-4e34-b886-1910eeeefc28";
+            fsType = "btrfs";
+            options = [ "subvol=root" ];
             neededForBoot = true;
-            options = [ "noatime" ];
+        };
+        "/nix" = {
+            device = "/dev/disk/by-uuid/166e20da-21a5-4e34-b886-1910eeeefc28";
+            fsType = "btrfs";
+            options = [ "noatime" "subvol=nix" ];
+            neededForBoot = true;
+        };
+        "/persistent" = {
+            device = "/dev/disk/by-uuid/166e20da-21a5-4e34-b886-1910eeeefc28";
+            fsType = "btrfs";
+            options = [ "subvol=persistent" ];
+            neededForBoot = true;
         };
     };
 
-    swapDevices = [
-        { device = "/dev/disk/by-uuid/a62c31d9-80b4-4894-b5e7-e91893c2b599"; }
-    ];
+    swapDevices = [ { device = "/dev/disk/by-uuid/6d4037db-1637-4160-a6d2-9959b350a035"; } ];
 
     networking.useDHCP = lib.mkDefault true;
 

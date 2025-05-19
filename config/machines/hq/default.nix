@@ -1,6 +1,7 @@
 { pkgs, ... }: {
     imports = [
         ./hardware.nix
+        ../../impermanence.nix
         ../../common-graphical.nix
     ];
 
