@@ -2,7 +2,7 @@
 {
     programs.zed-editor = {
         package = pkgs.zed-editor-fhs;
-        extensions = [ "vscode-dark-modern" "nix" "make" "toml" "scheme" "assembly" "meson"];
+        extensions = [ "vscode-dark-modern" "git-firefly" "nix" "make" "toml" "scheme" "assembly" "meson" "lua" ];
         userSettings = {
             theme = {
                 mode = "dark";
@@ -11,11 +11,8 @@
             };
 
             tab_size = 4;
-
             format_on_save = "on";
-
             terminal.cursor_shape = "bar";
-
             edit_predictions.mode = "subtle";
 
             languages.Nix.language_servers = [ "nil" ];
