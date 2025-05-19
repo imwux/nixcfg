@@ -59,6 +59,13 @@
             screenrecord
         ];
 
+        xdg.configFile."satty/config.toml".source = (pkgs.formats.toml {}).generate "satty.toml" {
+            general = {
+                corner-roundness = 4;
+                copy-command = "wl-copy";
+            };
+        };
+
         wayland.windowManager.hyprland.enable = true;
         programs.hyprlock.enable = true;
         systemd.user.sessionVariables = config.home-manager.users.wux.home.sessionVariables;
