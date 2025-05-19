@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }:
 {
-    programs.vscode = {
+    programs.vscode.profiles.default = {
         userSettings = {
             "update.mode" = "none";
 
