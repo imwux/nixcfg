@@ -69,10 +69,15 @@
             ];
         };
 
-        services.hyprpaper.settings = let wp_1 = toString pkgs.wallpaper."3840x1080-lion-king"; in {
-            preload = [wp_1];
+        services.hyprpaper.settings = let
+            # wp_1 = toString pkgs.wallpaper."3840x1080-lion-king";
+            wp_1 = toString pkgs.wallpaper."elysium-dark-3840x1080";
+            wp_2 = toString pkgs.wallpaper."elysium-dark-1920x1080";
+        in {
+            preload = [wp_1 wp_2];
             wallpaper = [
                 "DP-2,${wp_1}"
+                "HDMI-A-1,${wp_2}"
             ];
         };
     };
