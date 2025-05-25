@@ -15,6 +15,18 @@
             terminal.cursor_shape = "bar";
             edit_predictions.mode = "subtle";
 
+            minimap.show = "always";
+
+            "experimental.theme_overrides" = {
+                "background.appearance" = "blurred";
+                "background" = "#1F1F1FF0";
+                "editor.background" = "#00000000";
+                "editor.gutter.background" = "#00000000";
+                "editor.active_line.background" = "#212121F0";
+            };
+
+            debugger.dock = "right";
+
             languages.Nix.language_servers = [ "nil" ];
             lsp.nil.binary.path = "${pkgs.nil}/bin/nil";
 
