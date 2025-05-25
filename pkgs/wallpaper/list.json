@@ -1,5 +1,17 @@
 [
     {
+        "name": "elysium-dark-3840x1080",
+        "ext": "png",
+        "id": "tNUg9Gu",
+        "sha256": "85f5b056ad285a681eb8d45abc35d04b2f5e7b630e535329e212428b1908bb33"
+    },
+    {
+        "name": "elysium-dark-1920x1080",
+        "ext": "png",
+        "id": "YuHRX0u",
+        "sha256": "c4e5ef9220ad006d26e8fcb80bbb90380885b4b580218a31996c023bee4580ad"
+    },
+    {
         "name": "valorant-cypher",
         "ext": "png",
         "id": "JfQ9I7z",
