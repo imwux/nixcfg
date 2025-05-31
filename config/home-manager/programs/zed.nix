@@ -34,6 +34,7 @@
             lsp.rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
             lsp.lua-language-server.binary.path = "${pkgs.lua-language-server}/bin/lua-language-server";
             lsp.pylsp.binary.path = "${pkgs.python312Packages.python-lsp-server}/bin/pylsp";
+            lsp.ols.binary.path = "${pkgs.ols}/bin/ols";
         };
     };
 }
