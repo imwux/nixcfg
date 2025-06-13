@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
     programs.zed-editor = {
-        package = pkgs.zed-editor-fhs;
+        package = pkgs.zed-editor;
         extensions = [ "vscode-dark-modern" "git-firefly" "nix" "make" "toml" "scheme" "assembly" "meson" "lua" ];
         userSettings = {
             theme = {
