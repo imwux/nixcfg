@@ -10,6 +10,8 @@
                 light = "One Light";
             };
 
+            features.edit_prediction_provider = "copilot";
+
             tab_size = 4;
             format_on_save = "on";
             terminal.cursor_shape = "bar";
