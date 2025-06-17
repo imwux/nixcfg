@@ -10,12 +10,11 @@
                 light = "One Light";
             };
 
-            features.edit_prediction_provider = "copilot";
+            features.edit_prediction_provider = "none";
 
             tab_size = 4;
             format_on_save = "on";
             terminal.cursor_shape = "bar";
-            edit_predictions.mode = "subtle";
 
             minimap.show = "always";
 
