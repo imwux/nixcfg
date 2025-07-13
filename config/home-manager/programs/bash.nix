@@ -3,6 +3,7 @@
     programs.bash = {
         historyFile = null;
         shellAliases = {
+            r = "reset";
             c = "clear";
             la = "ls -a";
             ll = "ls -l";
