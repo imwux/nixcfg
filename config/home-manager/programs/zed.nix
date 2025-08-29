@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
     programs.zed-editor = {
-        package = pkgs.zed-editor;
+        package = pkgs.unstable.zed-editor;
         extensions = [ "vscode-dark-modern" "git-firefly" "nix" "make" "toml" "scheme" "assembly" "meson" "lua" ];
         userSettings = {
             theme = {
@@ -30,12 +30,12 @@
 
             languages.Nix.language_servers = [ "nil" ];
             lsp.nil.binary.path = "${pkgs.nil}/bin/nil";
-
             lsp.clangd.binary.path = "${pkgs.llvmPackages_19.clang-tools}/bin/clangd";
             lsp.rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
             lsp.lua-language-server.binary.path = "${pkgs.lua-language-server}/bin/lua-language-server";
             lsp.pylsp.binary.path = "${pkgs.python312Packages.python-lsp-server}/bin/pylsp";
             lsp.ols.binary.path = "${pkgs.ols}/bin/ols";
+            lsp.package-version-server.enabled = false;
         };
     };
 }
