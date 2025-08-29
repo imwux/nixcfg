@@ -47,17 +47,7 @@
             input.kb_layout = "fi";
 
             animations.enabled = false;
-
-            decoration = {
-                shadow.enabled = false;
-                blur.enabled = false;
-                rounding = 0;
-            };
-
-            general = {
-                "gaps_out" = 0;
-                "gaps_in" = 0;
-            };
+            decoration.blur.enabled = false;
         };
 
         services.hyprpaper.settings = let wp_1 = toString pkgs.wallpaper.landscape-cloudy-mountain; in {

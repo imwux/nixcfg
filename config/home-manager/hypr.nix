@@ -14,13 +14,14 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
             input.touchpad.disable_while_typing = false;
 
             general = {
-                "gaps_out" = lib.mkDefault 10;
-                "col.active_border" = "0xFF575757";
+                "gaps_in" = 0;
+                "gaps_out" = 0;
+                "col.active_border" = "0xFF308FD9";
             };
 
             decoration = {
-                rounding = lib.mkDefault 8;
-                shadow.range = 6;
+                rounding = 0;
+                shadow.enabled = false;
                 blur = {
                     new_optimizations = true;
                     special = false;
