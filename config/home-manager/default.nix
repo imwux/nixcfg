@@ -8,6 +8,6 @@
         ./programs/bash.nix
         ./programs/alacritty.nix
         ./programs/bemenu.nix
-        ./programs/neovim.nix
+        ./programs/neovim
     ];
 }

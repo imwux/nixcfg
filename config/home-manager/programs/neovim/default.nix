@@ -1,6 +1,9 @@
 { config, lib, pkgs, ... }:
 {
-    home.packages = with pkgs; lib.mkIf config.programs.neovim.enable [ nodejs ];
+    home.file.".config/nvim" = {
+        source = ./config;
+        recursive = true;
+    };
 
     programs.neovim = {
         defaultEditor = true;
@@ -16,9 +19,6 @@
             vim.o.termguicolors = true
             vim.g.mapleader = " "
         '';
-        plugins = with pkgs.vimPlugins; [
-            coc-nvim
-            coc-clangd
-        ];
+        withNodeJs = true;
     };
 }
