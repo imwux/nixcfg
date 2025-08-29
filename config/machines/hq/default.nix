@@ -55,6 +55,7 @@
     home-manager.users.wux = {
         home.packages = with pkgs; [
             prismlauncher
+            ftb-app
             whatsapp-for-linux
         ];
 
