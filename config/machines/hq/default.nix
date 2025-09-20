@@ -57,6 +57,10 @@
             prismlauncher
             ftb-app
             whatsapp-for-linux
+
+            freecad
+            unstable.kicad
+            unstable.orca-slicer
         ];
 
         wayland.windowManager.hyprland.settings = {
