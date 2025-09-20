@@ -35,6 +35,7 @@
             lsp.lua-language-server.binary.path = "${pkgs.lua-language-server}/bin/lua-language-server";
             lsp.pylsp.binary.path = "${pkgs.python312Packages.python-lsp-server}/bin/pylsp";
             lsp.ols.binary.path = "${pkgs.ols}/bin/ols";
+            lsp.gopls.binary.path = "${pkgs.gopls}/bin/gopls";
             lsp.package-version-server.enabled = false;
         };
     };
