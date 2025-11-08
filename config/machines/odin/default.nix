@@ -21,7 +21,7 @@
     time.timeZone = "Europe/Helsinki";
 
     networking.networkmanager.enable = true;
-    users.users.wux.extraGroups = [ "networkmanager" ];
+    users.users.wux.extraGroups = [ "networkmanager" "dialout" ];
 
     unfree = [ "vscode" "discord" "spotify" "vscode-extension-ms-vscode-cpptools" ];
 
@@ -39,6 +39,10 @@
     services.playerctld.enable = true;
 
     home-manager.users.wux = {
+        home.packages = with pkgs; [
+            arduino
+        ];
+
         wayland.windowManager.hyprland.settings = {
             exec-once = [ "${inputs.wuxs-ui.packages.${system}.default}/bin/wuxs-ui" ];
 
