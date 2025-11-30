@@ -1,6 +1,7 @@
 { ... }: {
     imports = [
         ./hypr.nix
+        ./dunst.nix
 
         ./programs/zed.nix
         ./programs/git.nix
