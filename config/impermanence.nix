@@ -60,6 +60,7 @@ in {
                 ".local/share/PrismLauncher"
                 ".local/share/Steam"
                 ".local/share/zed" # We could hardcode the things we want here for fun too
+                ".local/share/hyprland"
             ];
             files = [
                 ".bash_history"
