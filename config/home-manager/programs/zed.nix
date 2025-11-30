@@ -38,5 +38,16 @@
             lsp.gopls.binary.path = "${pkgs.gopls}/bin/gopls";
             lsp.package-version-server.enabled = false;
         };
+        userKeymaps = [
+            {
+                context = "Editor";
+                bindings = {
+                    "ctrl-alt-down" = "editor::AddSelectionBelow";
+                    "ctrl-alt-up" = "editor::AddSelectionAbove";
+                    "alt-shift-up" = "editor::DuplicateLineUp";
+                    "alt-shift-down" = "editor::DuplicateLineDown";
+                };
+            }
+        ];
     };
 }
