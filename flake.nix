@@ -10,6 +10,9 @@
         home-manager.url = "github:nix-community/home-manager/release-25.05";
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+        # Impermanence
+        impermanence.url = "github:nix-community/impermanence";
+
         # Lanzaboote (Secure Boot)
         lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
         lanzaboote.inputs.nixpkgs.follows = "nixpkgs";

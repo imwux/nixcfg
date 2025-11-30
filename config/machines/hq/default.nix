@@ -5,28 +5,19 @@
         ../../common-graphical.nix
     ];
 
-    systemd.mounts = [{
-        description = "Mount balder";
-        what = "/dev/disk/by-label/balder";
-        where = "/run/balder";
-        type = "ext4";
-        options = "nofail";
-    }];
+    # systemd.mounts = [{
+    #     description = "Mount balder";
+    #     what = "/dev/disk/by-label/balder";
+    #     where = "/run/balder";
+    #     type = "ext4";
+    #     options = "nofail";
+    # }];
 
-    systemd.automounts = [{
-        description = "Automount for balder";
-        where = "/run/balder";
-        wantedBy = [ "multi-user.target" ];
-    }];
-
-    networking.firewall = {
-        allowedUDPPorts = [
-            7707 # Project Wild Server
-        ];
-        allowedTCPPorts = [
-            7707 # Project Wild Server
-        ];
-    };
+    # systemd.automounts = [{
+    #     description = "Automount for balder";
+    #     where = "/run/balder";
+    #     wantedBy = [ "multi-user.target" ];
+    # }];
 
     time.timeZone = "Europe/Helsinki";
 
@@ -52,10 +43,11 @@
 
     programs.steam.enable = true;
 
+    environment.systemPackages = with pkgs; [ android-tools ];
+
     home-manager.users.wux = {
         home.packages = with pkgs; [
             prismlauncher
-            ftb-app
             whatsapp-for-linux
 
             freecad
