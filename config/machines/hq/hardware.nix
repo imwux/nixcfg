@@ -16,17 +16,15 @@ in {
     environment.systemPackages = with pkgs; [ sbctl ];
 
     boot.loader.grub.enable = lib.mkForce false;
-    boot.loader.systemd-boot.enable = lib.mkForce true;
 
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot";
 
-    # Setup when secure boot is actually needed
-    #boot.loader.systemd-boot.enable = lib.mkForce false;
-    #boot.lanzaboote = {
-    #    enable = true;
-    #    pkiBundle = "/etc/secureboot";
-    #};
+    boot.loader.systemd-boot.enable = lib.mkForce false;
+    boot.lanzaboote = {
+        enable = true;
+        pkiBundle = "/var/lib/sbctl";
+    };
 
     fileSystems = {
         "/boot" = {
