@@ -45,34 +45,36 @@
                 "!nixd"
             ];
 
-            lsp.nil = {
-                binary.path = "${pkgs.nil}/bin/nil";
-                initialization_options = {
-                    formatting = {
-                        command = [
-                            "${pkgs.nixfmt}/bin/nixfmt"
-                            "--indent=4"
-                            "--width=200"
-                        ];
+            lsp = {
+                nil = {
+                    binary.path = "${pkgs.nil}/bin/nil";
+                    initialization_options = {
+                        formatting = {
+                            command = [
+                                "${pkgs.nixfmt}/bin/nixfmt"
+                                "--indent=4"
+                                "--width=200"
+                            ];
+                        };
                     };
                 };
+                ruff.binary = {
+                    path = "${pkgs.ruff}/bin/ruff";
+                    arguments = [ "server" ];
+                };
+                basedpyright.binary = {
+                    path = "${pkgs.basedpyright}/bin/basedpyright-langserver";
+                    arguments = [ "--stdio" ];
+                };
+                rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+                clangd.binary.path = "${pkgs.llvmPackages_19.clang-tools}/bin/clangd";
+                lua-language-server.binary.path = "${pkgs.lua-language-server}/bin/lua-language-server";
+                pylsp.binary.path = "${pkgs.python312Packages.python-lsp-server}/bin/pylsp";
+                ols.binary.path = "${pkgs.ols}/bin/ols";
+                gopls.binary.path = "${pkgs.gopls}/bin/gopls";
+                asm-lsp.binary.path = "${pkgs.asm-lsp}/bin/asm-lsp";
+                package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
             };
-            lsp.clangd.binary.path = "${pkgs.llvmPackages_19.clang-tools}/bin/clangd";
-            lsp.rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
-            lsp.lua-language-server.binary.path = "${pkgs.lua-language-server}/bin/lua-language-server";
-            lsp.pylsp.binary.path = "${pkgs.python312Packages.python-lsp-server}/bin/pylsp";
-            lsp.ols.binary.path = "${pkgs.ols}/bin/ols";
-            lsp.gopls.binary.path = "${pkgs.gopls}/bin/gopls";
-            lsp.asm-lsp.binary.path = "${pkgs.asm-lsp}/bin/asm-lsp";
-            lsp.ruff.binary = {
-                path = "${pkgs.ruff}/bin/ruff";
-                arguments = [ "server" ];
-            };
-            lsp.basedpyright.binary = {
-                path = "${pkgs.basedpyright}/bin/basedpyright-langserver";
-                arguments = [ "--stdio" ];
-            };
-            lsp.package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
         };
         userKeymaps = [
             {
