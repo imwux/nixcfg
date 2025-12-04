@@ -48,7 +48,7 @@
                 initialization_options = {
                     formatting = {
                         command = [
-                            "${pkgs.nixfmt-rfc-style}/bin/nixfmt"
+                            "${pkgs.nixfmt}/bin/nixfmt"
                             "--indent=4"
                             "--width=200"
                         ];

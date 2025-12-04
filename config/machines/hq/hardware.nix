@@ -90,9 +90,6 @@ in {
         graphics = {
             enable = true;
             enable32Bit = true;
-            extraPackages = with pkgs; [
-                amdvlk # TODO: zed was crashing radv. once this is fixed remove this
-            ];
         };
 
         cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;

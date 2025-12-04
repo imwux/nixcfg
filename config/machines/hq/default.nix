@@ -18,10 +18,6 @@
         enable = true;
         qemu = {
             package = pkgs.qemu_kvm;
-            ovmf = {
-                enable = true;
-                packages = [pkgs.OVMFFull.fd];
-            };
             swtpm.enable = true;
         };
     };
@@ -34,7 +30,7 @@
     home-manager.users.wux = {
         home.packages = with pkgs; [
             prismlauncher
-            whatsapp-for-linux
+            wasistlos
 
             freecad
             unstable.kicad
