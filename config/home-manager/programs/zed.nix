@@ -2,6 +2,9 @@
 {
     programs.zed-editor = {
         package = pkgs.unstable.zed-editor;
+        extraPackages = with pkgs; [
+            rustup # Provide rustup for rust-analyzer
+        ];
         extensions = [
             "vscode-dark-modern"
             "git-firefly"
@@ -13,6 +16,8 @@
             "meson"
             "lua"
         ];
+        mutableUserKeymaps = false;
+        mutableUserSettings = false;
         userSettings = {
             theme = {
                 mode = "dark";
