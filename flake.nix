@@ -3,18 +3,18 @@
 
     inputs = {
         # nixpkgs
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
         nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
         # Home manager
-        home-manager.url = "github:nix-community/home-manager/release-25.05";
+        home-manager.url = "github:nix-community/home-manager/release-25.11";
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
         # Impermanence
         impermanence.url = "github:nix-community/impermanence";
 
         # Lanzaboote (Secure Boot)
-        lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
+        lanzaboote.url = "github:nix-community/lanzaboote/v0.4.3";
         lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 
         # WuX UI
@@ -27,14 +27,28 @@
         nixcfg-private.inputs.home-manager.follows = "home-manager";
     };
 
-    outputs = { self, ... } @ inputs: let
-        mkSystem = import ./mksystem.nix { inherit inputs; inherit (self) outputs; };
-    in {
-        overlays = import ./overlays.nix { inherit inputs; };
+    outputs =
+        { self, ... }@inputs:
+        let
+            mkSystem = import ./mksystem.nix {
+                inherit inputs;
+                inherit (self) outputs;
+            };
+        in
+        {
+            overlays = import ./overlays.nix { inherit inputs; };
 
-        config.common = import ./config/common.nix;
+            config.common = import ./config/common.nix;
 
-        nixosConfigurations.Odin = mkSystem { id = "odin"; name = "Odin"; system = "x86_64-linux"; };
-        nixosConfigurations.HQ = mkSystem { id = "hq"; name = "HQ"; system = "x86_64-linux"; };
-    };
+            nixosConfigurations.Odin = mkSystem {
+                id = "odin";
+                name = "Odin";
+                system = "x86_64-linux";
+            };
+            nixosConfigurations.HQ = mkSystem {
+                id = "hq";
+                name = "HQ";
+                system = "x86_64-linux";
+            };
+        };
 }
