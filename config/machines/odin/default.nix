@@ -1,29 +1,47 @@
-{ inputs, system, pkgs, ... }: {
+{
+    inputs,
+    system,
+    pkgs,
+    ...
+}:
+{
     imports = [
         ./hardware.nix
         ../../common-graphical.nix
     ];
 
-    systemd.mounts = [{
-        description = "Mount balder";
-        what = "/dev/disk/by-label/balder";
-        where = "/run/balder";
-        type = "ext4";
-        options = "nofail,user";
-    }];
+    systemd.mounts = [
+        {
+            description = "Mount balder";
+            what = "/dev/disk/by-label/balder";
+            where = "/run/balder";
+            type = "ext4";
+            options = "nofail,user";
+        }
+    ];
 
-    systemd.automounts = [{
-        description = "Automount for balder";
-        where = "/run/balder";
-        wantedBy = [ "multi-user.target" ];
-    }];
+    systemd.automounts = [
+        {
+            description = "Automount for balder";
+            where = "/run/balder";
+            wantedBy = [ "multi-user.target" ];
+        }
+    ];
 
     time.timeZone = "Europe/Helsinki";
 
     networking.networkmanager.enable = true;
-    users.users.wux.extraGroups = [ "networkmanager" "dialout" ];
+    users.users.wux.extraGroups = [
+        "networkmanager"
+        "dialout"
+    ];
 
-    unfree = [ "vscode" "discord" "spotify" "vscode-extension-ms-vscode-cpptools" ];
+    unfree = [
+        "vscode"
+        "discord"
+        "spotify"
+        "vscode-extension-ms-vscode-cpptools"
+    ];
 
     services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -54,11 +72,15 @@
             decoration.blur.enabled = false;
         };
 
-        services.hyprpaper.settings = let wp_1 = toString pkgs.wallpaper.landscape-cloudy-mountain; in {
-            preload = [wp_1];
-            wallpaper = [
-                "eDP-1,${wp_1}"
-            ];
-        };
+        services.hyprpaper.settings =
+            let
+                wp_1 = toString pkgs.wallpaper.landscape-cloudy-mountain;
+            in
+            {
+                preload = [ wp_1 ];
+                wallpaper = [
+                    "eDP-1,${wp_1}"
+                ];
+            };
     };
 }

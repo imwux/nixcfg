@@ -1,6 +1,16 @@
-{ lib, config, pkgs, ... }:
+{
+    lib,
+    config,
+    pkgs,
+    ...
+}:
 lib.mkIf config.wayland.windowManager.hyprland.enable {
-    home.packages = with pkgs; [ cliphist wl-clipboard material-symbols lexend ];
+    home.packages = with pkgs; [
+        cliphist
+        wl-clipboard
+        material-symbols
+        lexend
+    ];
 
     wayland.windowManager.hyprland = {
         systemd.enable = false;
@@ -76,13 +86,14 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
                 "$mod, RIGHT, movewindow, r"
                 "$mod, UP, movewindow, u"
                 "$mod, DOWN, movewindow, d"
-            ] ++ (
-                builtins.concatLists (builtins.genList (ws: [
+            ]
+            ++ (builtins.concatLists (
+                builtins.genList (ws: [
                     "$mod, ${toString ws}, workspace, ${toString ws}"
                     "$mod SHIFT, ${toString ws}, movetoworkspace, ${toString ws}"
                     "$mod SHIFT ALT, ${toString ws}, movetoworkspacesilent, ${toString ws}"
-                ]) 10)
-            );
+                ]) 10
+            ));
             bindm = [
                 "$mod, mouse:272, movewindow"
                 "$mod, mouse:273, resizewindow"

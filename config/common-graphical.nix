@@ -1,11 +1,18 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
     imports = [
         ./nixos/firefox.nix
     ];
 
-    users.users.wux.extraGroups = [ "video" "audio" ];
+    users.users.wux.extraGroups = [
+        "video"
+        "audio"
+    ];
 
-    unfree = [ "nvidia-x11" "nvidia-settings" ];
+    unfree = [
+        "nvidia-x11"
+        "nvidia-settings"
+    ];
 
     console = {
         font = "${pkgs.terminus_font}/share/consolefonts/ter-132n.psf.gz";
@@ -59,7 +66,7 @@
             screenrecord
         ];
 
-        xdg.configFile."satty/config.toml".source = (pkgs.formats.toml {}).generate "satty.toml" {
+        xdg.configFile."satty/config.toml".source = (pkgs.formats.toml { }).generate "satty.toml" {
             general = {
                 corner-roundness = 4;
                 copy-command = "wl-copy";

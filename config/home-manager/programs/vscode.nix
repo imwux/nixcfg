@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
     programs.vscode.profiles.default = {
         userSettings = {
@@ -24,7 +24,9 @@
 
             "terminal.integrated.cursorStyle" = "line";
             "files.autoSave" = "off";
-            "files.associations" = { "*.h" = "c"; };
+            "files.associations" = {
+                "*.h" = "c";
+            };
             "extensions.ignoreRecommendations" = true;
             "remote.autoForwardPorts" = false;
 
@@ -32,22 +34,34 @@
 
             "todo-tree.regex.regex" = "(//|/\\*|\\s\\*|#|<!--|;|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)";
             "todo-tree.general.tags" = [
-                "TODO"      "@todo"
-                "BUG"       "@bug"
-                "CRITICAL"  "@critical"
-                "OPTIMIZE"  "@optimize"
+                "TODO"
+                "@todo"
+                "BUG"
+                "@bug"
+                "CRITICAL"
+                "@critical"
+                "OPTIMIZE"
+                "@optimize"
             ];
             "todo-tree.highlights.backgroundColourScheme" = [
-                "yellow"    "yellow"
-                "orange"    "orange"
-                "red"       "red"
-                "green"     "green"
+                "yellow"
+                "yellow"
+                "orange"
+                "orange"
+                "red"
+                "red"
+                "green"
+                "green"
             ];
             "todo-tree.highlights.foregroundColourScheme" = [
-                "black" "black"
-                "black" "black"
-                "white" "white"
-                "black" "black"
+                "black"
+                "black"
+                "black"
+                "black"
+                "white"
+                "white"
+                "black"
+                "black"
             ];
             "todo-tree.general.revealBehaviour" = "start of todo";
             "todo-tree.highlights.highlightDelay" = 0;

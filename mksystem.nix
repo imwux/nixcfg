@@ -1,9 +1,16 @@
 { inputs, outputs }:
-{ id, name, system }:
+{
+    id,
+    name,
+    system,
+}:
 inputs.nixpkgs.lib.nixosSystem {
     inherit system;
 
-    specialArgs = { inherit inputs outputs; inherit system; };
+    specialArgs = {
+        inherit inputs outputs;
+        inherit system;
+    };
 
     modules = [
         inputs.home-manager.nixosModules.home-manager
@@ -22,7 +29,10 @@ inputs.nixpkgs.lib.nixosSystem {
                 useGlobalPkgs = true;
                 useUserPackages = true;
 
-                extraSpecialArgs = { inherit inputs outputs; inherit system; };
+                extraSpecialArgs = {
+                    inherit inputs outputs;
+                    inherit system;
+                };
 
                 users.wux = {
                     programs.home-manager.enable = true;

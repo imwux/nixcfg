@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
     imports = [
         ./hypr.nix
         ./dunst.nix

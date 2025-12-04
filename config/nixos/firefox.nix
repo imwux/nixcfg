@@ -1,7 +1,12 @@
-{ ... }: {
+{ ... }:
+{
     programs.firefox = {
         preferencesStatus = "locked";
-        languagePacks = [ "en-US" "sv-SE" "fi" ];
+        languagePacks = [
+            "en-US"
+            "sv-SE"
+            "fi"
+        ];
         preferences = {
             "layout.css.prefers-color-scheme.content-override" = 0;
             "browser.shell.checkDefaultBrowser" = false;

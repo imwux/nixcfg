@@ -1,7 +1,8 @@
 { inputs, ... }:
 let
     passwordFile = "/persistent/password.txt";
-in {
+in
+{
     imports = [ inputs.impermanence.nixosModules.impermanence ];
 
     users.mutableUsers = false;
@@ -9,13 +10,18 @@ in {
     users.users.root.hashedPasswordFile = passwordFile;
     users.users.wux.hashedPasswordFile = passwordFile;
 
-    home-manager.users.wux.imports = [ ({ config, ... }: {
-        home.file = {
-            tmp.source = config.lib.file.mkOutOfStoreSymlink "/persistent/tmp";
-            nixcfg.source = config.lib.file.mkOutOfStoreSymlink "/persistent/nixcfg";
-            projects.source = config.lib.file.mkOutOfStoreSymlink "/persistent/projects";
-        };
-    }) ];
+    home-manager.users.wux.imports = [
+        (
+            { config, ... }:
+            {
+                home.file = {
+                    tmp.source = config.lib.file.mkOutOfStoreSymlink "/persistent/tmp";
+                    nixcfg.source = config.lib.file.mkOutOfStoreSymlink "/persistent/nixcfg";
+                    projects.source = config.lib.file.mkOutOfStoreSymlink "/persistent/projects";
+                };
+            }
+        )
+    ];
 
     environment.persistence."/persistent/root" = {
         hideMounts = true;
@@ -33,8 +39,14 @@ in {
             directories = [
                 "Downloads"
                 ".mozilla"
-                { directory = ".pki"; mode = "0700"; }
-                { directory = ".ssh"; mode = "0700"; }
+                {
+                    directory = ".pki";
+                    mode = "0700";
+                }
+                {
+                    directory = ".ssh";
+                    mode = "0700";
+                }
 
                 # .config
                 ".config/aseprite"

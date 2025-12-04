@@ -1,8 +1,21 @@
-{ lib, config, pkgs, ... }: {
-    boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+{
+    lib,
+    config,
+    pkgs,
+    ...
+}:
+{
+    boot.initrd.availableKernelModules = [
+        "xhci_pci"
+        "ahci"
+        "nvme"
+        "usb_storage"
+        "sd_mod"
+        "rtsx_pci_sdmmc"
+    ];
     boot.initrd.kernelModules = [ "i915" ];
     boot.kernelModules = [ "kvm-intel" ];
-    boot.extraModulePackages = [];
+    boot.extraModulePackages = [ ];
 
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
@@ -17,11 +30,14 @@
         "/boot" = {
             device = "/dev/disk/by-uuid/D14F-3F94";
             fsType = "vfat";
-            options = [ "fmask=0077" "dmask=0077" ];
+            options = [
+                "fmask=0077"
+                "dmask=0077"
+            ];
         };
     };
 
-    swapDevices = [{ device = "/dev/disk/by-uuid/06d373d0-d269-4db6-80b3-56c23c1849ae"; }];
+    swapDevices = [ { device = "/dev/disk/by-uuid/06d373d0-d269-4db6-80b3-56c23c1849ae"; } ];
 
     networking.useDHCP = lib.mkDefault true;
 

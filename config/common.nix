@@ -1,12 +1,19 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
     imports = [
         ./nixos/unfree.nix
     ];
 
     nix = {
         settings = {
-            experimental-features = [ "nix-command" "flakes" ];
-            trusted-users = [ "root" "wux" ];
+            experimental-features = [
+                "nix-command"
+                "flakes"
+            ];
+            trusted-users = [
+                "root"
+                "wux"
+            ];
         };
 
         gc = {
@@ -30,8 +37,18 @@
         rtkit.enable = true;
 
         pam.loginLimits = [
-            { domain = "@wheel"; item = "nofile"; type = "soft"; value = "524288"; }
-            { domain = "@wheel"; item = "nofile"; type = "hard"; value = "1048576"; }
+            {
+                domain = "@wheel";
+                item = "nofile";
+                type = "soft";
+                value = "524288";
+            }
+            {
+                domain = "@wheel";
+                item = "nofile";
+                type = "hard";
+                value = "1048576";
+            }
         ];
     };
 

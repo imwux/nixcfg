@@ -2,12 +2,14 @@
 let
     inherit (lib)
         mkOption
-        types;
-in {
+        types
+        ;
+in
+{
     options = {
         unfree = mkOption {
             type = types.listOf types.str;
-            default = [];
+            default = [ ];
             description = "List of allowed unfree packages";
         };
     };
