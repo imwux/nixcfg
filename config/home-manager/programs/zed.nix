@@ -38,6 +38,8 @@
 
             debugger.dock = "right";
 
+            auto_install_extensions = false;
+
             languages.Nix.language_servers = [
                 "nil"
                 "!nixd"
@@ -70,7 +72,7 @@
                 path = "${pkgs.basedpyright}/bin/basedpyright-langserver";
                 arguments = [ "--stdio" ];
             };
-            lsp.package-version-server.enabled = false;
+            lsp.package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
         };
         userKeymaps = [
             {
