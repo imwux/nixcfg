@@ -2,9 +2,6 @@
 {
     programs.zed-editor = {
         package = pkgs.unstable.zed-editor;
-        extraPackages = with pkgs; [
-            rustup # Provide rustup for rust-analyzer
-        ];
         extensions = [
             "vscode-dark-modern"
             "git-firefly"
@@ -45,10 +42,13 @@
 
             auto_install_extensions = false;
 
-            languages.Nix.language_servers = [
-                "nil"
-                "!nixd"
-            ];
+            languages = {
+                Nix.language_servers = [
+                    "nil"
+                    "!nixd"
+                ];
+                Assembly.language_servers = [ "!asm-lsp" ];
+            };
 
             lsp = {
                 nil = {
@@ -77,7 +77,6 @@
                 pylsp.binary.path = "${pkgs.python312Packages.python-lsp-server}/bin/pylsp";
                 ols.binary.path = "${pkgs.ols}/bin/ols";
                 gopls.binary.path = "${pkgs.gopls}/bin/gopls";
-                asm-lsp.binary.path = "${pkgs.asm-lsp}/bin/asm-lsp";
                 package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
             };
         };
