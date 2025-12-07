@@ -40,11 +40,6 @@
 
             config.common = import ./config/common.nix;
 
-            nixosConfigurations.Odin = mkSystem {
-                id = "odin";
-                name = "Odin";
-                system = "x86_64-linux";
-            };
             nixosConfigurations.HQ = mkSystem {
                 id = "hq";
                 name = "HQ";
