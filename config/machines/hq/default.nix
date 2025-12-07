@@ -21,8 +21,6 @@
         "vscode-extension-ms-vscode-cpptools"
     ];
 
-    services.xserver.videoDrivers = [ "modesetting" ];
-
     virtualisation.libvirtd = {
         enable = true;
         qemu = {

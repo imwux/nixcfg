@@ -43,8 +43,6 @@
         "vscode-extension-ms-vscode-cpptools"
     ];
 
-    services.xserver.videoDrivers = [ "nvidia" ];
-
     services.upower.enable = true;
 
     programs.light.enable = true;
