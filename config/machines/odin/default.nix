@@ -61,6 +61,8 @@
             arduino
         ];
 
+        services.gvfs.enable = true; # Needed for Astal (UI)
+
         wayland.windowManager.hyprland.settings = {
             exec-once = [ "${inputs.wuxs-ui.packages.${system}.default}/bin/wuxs-ui" ];
 

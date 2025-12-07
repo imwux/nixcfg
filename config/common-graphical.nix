@@ -48,8 +48,6 @@
         jack.enable = true;
     };
 
-    services.gvfs.enable = true; # Needed for Astal (UI)
-
     programs.firefox.enable = true;
 
     home-manager.users.wux = {
