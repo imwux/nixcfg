@@ -6,8 +6,6 @@
 }:
 lib.mkIf config.wayland.windowManager.hyprland.enable {
     home.packages = with pkgs; [
-        cliphist
-        wl-clipboard
         material-symbols
         lexend
     ];
@@ -15,105 +13,110 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
     wayland.windowManager.hyprland = {
         systemd.enable = false;
 
-        settings = {
-            exec-once = [
-                "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store"
-                "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store"
-            ];
+        settings =
+            let
+                wobsock = "$XDG_RUNTIME_DIR/wob.sock";
+            in
+            {
+                exec-once = [
+                    "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store"
+                    "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store"
+                    "rm -f ${wobsock} && mkfifo ${wobsock} && tail -f ${wobsock} | ${pkgs.wob}/bin/wob"
+                ];
 
-            input.touchpad.disable_while_typing = false;
+                input.touchpad.disable_while_typing = false;
 
-            general = {
-                "gaps_in" = 0;
-                "gaps_out" = 0;
-                "col.active_border" = "0xFF308FD9";
-            };
-
-            decoration = {
-                rounding = 0;
-                shadow.enabled = false;
-                blur = {
-                    new_optimizations = true;
-                    special = false;
-                    size = 10;
-                    passes = 3;
-                    brightness = 1;
-                    noise = 0.01;
-                    contrast = 1.4;
-                    popups = true;
-                    popups_ignorealpha = 0.6;
+                general = {
+                    "gaps_in" = 0;
+                    "gaps_out" = 0;
+                    "col.active_border" = "0xFF308FD9";
                 };
+
+                decoration = {
+                    rounding = 0;
+                    shadow.enabled = false;
+                    blur = {
+                        new_optimizations = true;
+                        special = false;
+                        size = 10;
+                        passes = 3;
+                        brightness = 1;
+                        noise = 0.01;
+                        contrast = 1.4;
+                        popups = true;
+                        popups_ignorealpha = 0.6;
+                    };
+                };
+
+                blurls = [ "popup_window" ];
+                layerrule = [
+                    "ignorezero, popup_window"
+                    "blurpopups, popup_window"
+                    "blur, bar"
+                    "blurpopups, bar"
+                    "ignorezero, bar"
+                ];
+
+                windowrulev2 = [
+                    "opacity 0.95 0.95,class:^(code)$"
+                    "noblur, class:^(?!(code))"
+                ];
+
+                misc.disable_hyprland_logo = true;
+
+                "$mod" = "SUPER";
+                bind = [
+                    "$mod, Return, exec, ${pkgs.alacritty}/bin/alacritty"
+                    "$mod, D, exec, ${pkgs.bemenu}/bin/bemenu-run"
+                    "$mod SHIFT, S, exec, ${pkgs.screenshot}/bin/screenshot"
+                    "$mod, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
+
+                    "$mod, V, exec, ${pkgs.cliphist}/bin/cliphist list | bemenu | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy"
+
+                    "$mod, F, fullscreenstate, -1, 2"
+                    "$mod SHIFT, F, fullscreenstate, 2, 2"
+
+                    "$mod, R, submap, resize"
+                    "$mod SHIFT, Q, killactive"
+
+                    "$mod, TAB, togglespecialworkspace"
+                    "$mod SHIFT, TAB, movetoworkspace, special"
+
+                    "$mod, SPACE, togglefloating"
+                    "$mod SHIFT, SPACE, pin"
+
+                    "$mod, LEFT, movewindow, l"
+                    "$mod, RIGHT, movewindow, r"
+                    "$mod, UP, movewindow, u"
+                    "$mod, DOWN, movewindow, d"
+                ]
+                ++ (builtins.concatLists (
+                    builtins.genList (ws: [
+                        "$mod, ${toString ws}, workspace, ${toString ws}"
+                        "$mod SHIFT, ${toString ws}, movetoworkspace, ${toString ws}"
+                        "$mod SHIFT ALT, ${toString ws}, movetoworkspacesilent, ${toString ws}"
+                    ]) 10
+                ));
+                bindm = [
+                    "$mod, mouse:272, movewindow"
+                    "$mod, mouse:273, resizewindow"
+                    "$mod SHIFT, mouse:272, resizewindow"
+                    "$mod SHIFT, mouse:273, resizewindow"
+                ];
+                bindl = [
+                    ", XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
+                    ", XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
+                    ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
+                    ", XF86AudioMicMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+                    ", XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > ${wobsock}) || ${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobsock}"
+                ];
+                bindle = [
+                    ", XF86MonBrightnessUp, exec, ${pkgs.light}/bin/light -A 5 && ${pkgs.light}/bin/light -G | cut -d'.' -f1 > ${wobsock}"
+                    ", XF86MonBrightnessDown, exec, ${pkgs.light}/bin/light -U 5 && ${pkgs.light}/bin/light -G | cut -d'.' -f1 > ${wobsock}"
+                    ", XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && ${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobsock}"
+                    ", XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && ${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobsock}"
+                ];
             };
-
-            blurls = [ "popup_window" ];
-            layerrule = [
-                "ignorezero, popup_window"
-                "blurpopups, popup_window"
-                "blur, bar"
-                "blurpopups, bar"
-                "ignorezero, bar"
-            ];
-
-            windowrulev2 = [
-                "opacity 0.95 0.95,class:^(code)$"
-                "noblur, class:^(?!(code))"
-            ];
-
-            misc.disable_hyprland_logo = true;
-
-            "$mod" = "SUPER";
-            bind = [
-                "$mod, Return, exec, ${pkgs.alacritty}/bin/alacritty"
-                "$mod, D, exec, ${pkgs.bemenu}/bin/bemenu-run"
-                "$mod SHIFT, S, exec, ${pkgs.screenshot}/bin/screenshot"
-                "$mod, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
-
-                "$mod, V, exec, ${pkgs.cliphist}/bin/cliphist list | bemenu | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy"
-
-                "$mod, F, fullscreenstate, -1, 2"
-                "$mod SHIFT, F, fullscreenstate, 2, 2"
-
-                "$mod, R, submap, resize"
-                "$mod SHIFT, Q, killactive"
-
-                "$mod, TAB, togglespecialworkspace"
-                "$mod SHIFT, TAB, movetoworkspace, special"
-
-                "$mod, SPACE, togglefloating"
-                "$mod SHIFT, SPACE, pin"
-
-                "$mod, LEFT, movewindow, l"
-                "$mod, RIGHT, movewindow, r"
-                "$mod, UP, movewindow, u"
-                "$mod, DOWN, movewindow, d"
-            ]
-            ++ (builtins.concatLists (
-                builtins.genList (ws: [
-                    "$mod, ${toString ws}, workspace, ${toString ws}"
-                    "$mod SHIFT, ${toString ws}, movetoworkspace, ${toString ws}"
-                    "$mod SHIFT ALT, ${toString ws}, movetoworkspacesilent, ${toString ws}"
-                ]) 10
-            ));
-            bindm = [
-                "$mod, mouse:272, movewindow"
-                "$mod, mouse:273, resizewindow"
-                "$mod SHIFT, mouse:272, resizewindow"
-                "$mod SHIFT, mouse:273, resizewindow"
-            ];
-            bindl = [
-                ", XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
-                ", XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
-                ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
-                ", XF86AudioMicMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-                ", XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-            ];
-            bindle = [
-                ", XF86MonBrightnessUp, exec, ${pkgs.light}/bin/light -A 5"
-                ", XF86MonBrightnessDown, exec, ${pkgs.light}/bin/light -U 5"
-                ", XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-                ", XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-            ];
-        };
         extraConfig = ''
             submap = resize
             binde = , RIGHT, resizeactive, 50 0
