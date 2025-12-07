@@ -50,5 +50,10 @@
                 name = "HQ";
                 system = "x86_64-linux";
             };
+            nixosConfigurations.Atlas = mkSystem {
+                id = "atlas";
+                name = "Atlas";
+                system = "x86_64-linux";
+            };
         };
 }
