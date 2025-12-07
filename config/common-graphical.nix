@@ -70,11 +70,11 @@
             };
         };
 
+        systemd.user.sessionVariables = config.home-manager.users.wux.home.sessionVariables;
+
         wayland.windowManager.hyprland.enable = true;
         programs.hyprlock.enable = true;
-        systemd.user.sessionVariables = config.home-manager.users.wux.home.sessionVariables;
         services.hyprpaper.enable = true;
-        services.mpris-proxy.enable = true;
         services.dunst.enable = true;
 
         home.pointerCursor = {
