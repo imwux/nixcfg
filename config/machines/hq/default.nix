@@ -2,8 +2,8 @@
 {
     imports = [
         ./hardware.nix
-        ../../impermanence.nix
         ../../common-graphical.nix
+        ../../nixos/impermanence.nix
     ];
 
     time.timeZone = "Europe/Helsinki";
