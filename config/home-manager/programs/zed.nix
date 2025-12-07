@@ -12,6 +12,7 @@
             "assembly"
             "meson"
             "lua"
+            "scss"
         ];
         mutableUserKeymaps = false;
         mutableUserSettings = false;
