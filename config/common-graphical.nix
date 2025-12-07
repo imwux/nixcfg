@@ -39,7 +39,6 @@
         platformTheme = "gnome";
     };
 
-    nixpkgs.config.pulseaudio = true;
     services.pipewire = {
         enable = true;
         alsa.enable = true;
