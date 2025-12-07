@@ -42,7 +42,7 @@
 
         services.hyprpaper.settings =
             let
-                wp_1 = toString pkgs.wallpaper.landscape-cloudy-mountain;
+                wp_1 = toString pkgs.wallpaper.cute-fox;
             in
             {
                 preload = [ wp_1 ];

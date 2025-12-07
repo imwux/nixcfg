@@ -36,6 +36,18 @@
         "sha256": "1a96jjm9fgsm5hlddb4v79m9r9pahxx1nl5parna8ij0j9rlc1v6"
     },
     {
+        "name": "cute-cat-green",
+        "ext": "jpeg",
+        "id": "KAicJzv",
+        "sha256": "1zcg4jsvl1y1mb1vgh4vad6brwq277y64zmv301kdppv526xiw3n"
+    },
+    {
+        "name": "cute-fox",
+        "ext": "jpeg",
+        "id": "dcr6J6v",
+        "sha256": "0d3m2hqkd30n962f2qqz95hb4541dmpapfyqw4dp6frzswvw7955"
+    },
+    {
         "name": "3840x1080-valorant-omen",
         "ext": "jpeg",
         "id": "7meeIR4",
