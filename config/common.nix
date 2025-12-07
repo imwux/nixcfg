@@ -75,6 +75,4 @@
 
         xdg.configFile."wgetrc".text = "hsts_file = \"~/.cache/wget-hsts\"";
     };
-
-    system.stateVersion = "25.05";
 }
