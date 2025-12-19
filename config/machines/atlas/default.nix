@@ -9,19 +9,20 @@
         ../../nixos/impermanence.nix
     ];
 
-    time.timeZone = "Europe/Helsinki";
-
-    networking.networkmanager.enable = true;
-    users.users.wux.extraGroups = [
-        "networkmanager"
-        "dialout"
-    ];
-
     unfree = [
         "vscode"
         "discord"
         "spotify"
         "vscode-extension-ms-vscode-cpptools"
+    ];
+
+    time.timeZone = "Europe/Helsinki";
+
+    networking.networkmanager.enable = true;
+
+    users.users.wux.extraGroups = [
+        "networkmanager"
+        "dialout"
     ];
 
     services.upower.enable = true;
@@ -32,7 +33,24 @@
         wayland.windowManager.hyprland.settings = {
             monitor = [ ",preferred,auto,1.5" ];
 
-            input.kb_layout = "fi";
+            input = {
+                kb_layout = "fi";
+                touchpad = {
+                    disable_while_typing = false;
+                    natural_scroll = true;
+                    scroll_factor = 0.5;
+                };
+            };
+
+            gesture = [
+                "3, horizontal, workspace"
+            ];
+            gestures = {
+                workspace_swipe_create_new = false;
+                workspace_swipe_forever = true;
+            };
+
+            misc.vfr = true;
 
             animations.enabled = false;
             decoration.blur.enabled = false;

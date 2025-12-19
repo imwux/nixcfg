@@ -1,6 +1,7 @@
 {
     config,
     lib,
+    pkgs,
     ...
 }:
 let
@@ -20,6 +21,12 @@ in
         "sdhci_pci"
     ];
     boot.initrd.kernelModules = [ ];
+
+    boot.kernelPackages =
+        let
+            linuxPackages = pkgs.linuxPackages_6_17;
+        in
+        builtins.trace "Built against kernel ${linuxPackages.kernel.version}" linuxPackages;
     boot.kernelModules = [ "kvm-amd" ];
     boot.extraModulePackages = [ ];
 
@@ -93,6 +100,8 @@ in
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
+    services.fwupd.enable = true;
+
     hardware = {
         enableRedistributableFirmware = true;
 
@@ -103,5 +112,4 @@ in
 
         cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;
     };
-
 }
