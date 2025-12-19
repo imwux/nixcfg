@@ -30,6 +30,10 @@
     services.playerctld.enable = true;
 
     home-manager.users.wux = {
+        home.packages = with pkgs; [
+            status
+        ];
+
         wayland.windowManager.hyprland.settings = {
             monitor = [ ",preferred,auto,1.5" ];
 

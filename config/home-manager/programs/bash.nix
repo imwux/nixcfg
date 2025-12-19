@@ -19,9 +19,6 @@
 
             # Reset terminal cursor to a line
             rc = ''echo -ne "\e[5 q"'';
-
-            # Battery command for laptop
-            battery = ''${pkgs.upower}/bin/upower -i $(${pkgs.upower}/bin/upower -e | head -n 1)'';
         };
         initExtra = ''
             case $(tty) in
