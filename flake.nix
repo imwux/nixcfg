@@ -14,7 +14,7 @@
         impermanence.url = "github:nix-community/impermanence";
 
         # Lanzaboote (Secure Boot)
-        lanzaboote.url = "github:nix-community/lanzaboote/v0.4.3";
+        lanzaboote.url = "github:nix-community/lanzaboote/v1.0.0";
         lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 
         # NixOS Private Configuration
