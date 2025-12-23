@@ -73,7 +73,7 @@
                     arguments = [ "--stdio" ];
                 };
                 rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
-                clangd.binary.path = "${pkgs.llvmPackages_19.clang-tools}/bin/clangd";
+                clangd.binary.path = "${pkgs.llvmPackages_20.clang-tools}/bin/clangd";
                 lua-language-server.binary.path = "${pkgs.lua-language-server}/bin/lua-language-server";
                 pylsp.binary.path = "${pkgs.python312Packages.python-lsp-server}/bin/pylsp";
                 ols.binary.path = "${pkgs.ols}/bin/ols";
