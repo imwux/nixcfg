@@ -42,6 +42,8 @@
             freecad
             unstable.kicad
             unstable.orca-slicer
+
+            solaar
         ];
 
         wayland.windowManager.hyprland.settings = {
