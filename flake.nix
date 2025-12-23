@@ -17,10 +17,6 @@
         lanzaboote.url = "github:nix-community/lanzaboote/v0.4.3";
         lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 
-        # WuX UI
-        wuxs-ui.url = "github:imwux/ui";
-        wuxs-ui.inputs.nixpkgs.follows = "nixpkgs";
-
         # NixOS Private Configuration
         nixcfg-private.url = "git+ssh://git@github.com/imwux/nixcfg-private.git?ref=main";
         nixcfg-private.inputs.nixpkgs.follows = "nixpkgs";
