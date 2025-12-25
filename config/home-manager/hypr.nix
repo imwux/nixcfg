@@ -8,6 +8,9 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
     home.packages = with pkgs; [
         material-symbols
         lexend
+
+        wl-clipboard
+        cliphist
     ];
 
     wayland.windowManager.hyprland = {
