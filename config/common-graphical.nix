@@ -56,6 +56,8 @@
             gimp
             vlc
 
+            nautilus
+
             coppwr
             meld
 
