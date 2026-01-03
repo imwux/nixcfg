@@ -6,6 +6,7 @@
 
         ./programs/zed.nix
         ./programs/git.nix
+        ./programs/ssh.nix
         ./programs/vscode.nix
         ./programs/bash.nix
         ./programs/alacritty.nix
