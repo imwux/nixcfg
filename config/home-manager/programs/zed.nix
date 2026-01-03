@@ -43,6 +43,12 @@
 
             auto_install_extensions = false;
 
+            agent_servers = {
+                codex = {
+                    command = "${pkgs.codex-acp}/bin/codex-acp";
+                };
+            };
+
             languages = {
                 Nix.language_servers = [
                     "nil"
@@ -72,7 +78,7 @@
                     path = "${pkgs.basedpyright}/bin/basedpyright-langserver";
                     arguments = [ "--stdio" ];
                 };
-                rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+                rust-analyzer.binary.path = "${pkgs.unstable.rust-analyzer}/bin/rust-analyzer";
                 clangd.binary.path = "${pkgs.llvmPackages_20.clang-tools}/bin/clangd";
                 lua-language-server.binary.path = "${pkgs.lua-language-server}/bin/lua-language-server";
                 pylsp.binary.path = "${pkgs.python312Packages.python-lsp-server}/bin/pylsp";
