@@ -67,6 +67,7 @@
     home-manager.users.wux = {
         home.packages = with pkgs; [
             imagemagick
+            gh
         ];
 
         programs.bash.enable = true;
