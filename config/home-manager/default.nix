@@ -12,5 +12,6 @@
         ./programs/alacritty.nix
         ./programs/bemenu.nix
         ./programs/neovim
+        ./programs/gh.nix
     ];
 }

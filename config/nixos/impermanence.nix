@@ -62,6 +62,7 @@ in
                 ".config/spotify"
                 ".config/uwsm" # Maybe hardcode this too ?
                 ".config/vlc"
+                ".config/gh"
 
                 # .local
                 ".local/state/wireplumber"

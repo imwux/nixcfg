@@ -65,15 +65,11 @@
     };
 
     home-manager.users.wux = {
-        home.packages = with pkgs; [
-            imagemagick
-            gh
-        ];
-
         programs.bash.enable = true;
         programs.git.enable = true;
         programs.ssh.enable = true;
         programs.neovim.enable = true;
+        programs.gh.enable = true;
 
         xdg.configFile."wgetrc".text = "hsts_file = \"~/.cache/wget-hsts\"";
     };
