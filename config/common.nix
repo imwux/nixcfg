@@ -71,6 +71,8 @@
         programs.neovim.enable = true;
         programs.gh.enable = true;
 
+        home.packages = with pkgs; [ btop ];
+
         xdg.configFile."wgetrc".text = "hsts_file = \"~/.cache/wget-hsts\"";
     };
 }
