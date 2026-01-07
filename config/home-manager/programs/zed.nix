@@ -85,6 +85,7 @@
                 ols.binary.path = "${pkgs.ols}/bin/ols";
                 gopls.binary.path = "${pkgs.gopls}/bin/gopls";
                 package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
+                discord_presence.binary.path = "${pkgs.zed-discord-presence}/bin/discord-presence-lsp";
             };
         };
         userKeymaps = [
