@@ -14,9 +14,6 @@
             # Rebuild NixOS
             rb = "sudo nixos-rebuild switch --flake /home/wux/nixcfg";
 
-            # Edit sops secret file with ssh key
-            esops = ''SOPS_AGE_KEY="$(cat ~/.ssh/id_ed25519 | ssh-to-age -private-key)" sops'';
-
             # Reset terminal cursor to a line
             rc = ''echo -ne "\e[5 q"'';
         };
