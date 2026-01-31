@@ -47,6 +47,7 @@ in
                     directory = ".ssh";
                     mode = "0700";
                 }
+                ".rustup"
 
                 # .config
                 ".config/aseprite"
