@@ -62,6 +62,7 @@
     environment.variables = {
         GOPATH = "$HOME/.config/go";
         GOMODCACHE = "$HOME/.cache/go/mod";
+        NIX_SHELL_PRESERVE_PROMPT = "1";
     };
 
     home-manager.users.wux = {

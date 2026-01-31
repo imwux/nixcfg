@@ -28,7 +28,6 @@
     environment.sessionVariables = {
         NIXOS_OZONE_WL = 1;
         WLR_NO_HARDWARE_CURSORS = 1;
-        NIX_SHELL_PRESERVE_PROMPT = 1;
     };
 
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
