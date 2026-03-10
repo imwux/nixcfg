@@ -18,6 +18,7 @@ in
                     tmp.source = config.lib.file.mkOutOfStoreSymlink "/persistent/tmp";
                     nixcfg.source = config.lib.file.mkOutOfStoreSymlink "/persistent/nixcfg";
                     projects.source = config.lib.file.mkOutOfStoreSymlink "/persistent/projects";
+                    vm.source = config.lib.file.mkOutOfStoreSymlink "/persistent/vm";
                 };
             }
         )
@@ -64,6 +65,7 @@ in
                 ".config/uwsm" # Maybe hardcode this too ?
                 ".config/vlc"
                 ".config/gh"
+                ".config/SourceGit"
 
                 # .local
                 ".local/state/wireplumber"
