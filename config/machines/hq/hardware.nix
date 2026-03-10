@@ -15,30 +15,69 @@ in
 {
     imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
-    boot.initrd.availableKernelModules = [
-        "nvme"
-        "xhci_pci"
-        "ahci"
-        "usbhid"
-        "usb_storage"
-        "sd_mod"
-    ];
-    boot.initrd.kernelModules = [ ];
-    boot.kernelModules = [ "kvm-amd" ];
-    boot.extraModulePackages = [ ];
+    boot = {
+        kernelParams = [ "iommu=pt" ];
+
+        initrd = {
+            availableKernelModules = [
+                "nvme"
+                "xhci_pci"
+                "ahci"
+                "usbhid"
+                "usb_storage"
+                "sd_mod"
+            ];
+            kernelModules = [ ];
+
+            postResumeCommands = lib.mkAfter ''
+                TMPDIR="/impermanence_btrfs_tmp"
+                mkdir $TMPDIR
+                mount ${disks.main} $TMPDIR
+                if [[ -e $TMPDIR/root ]]; then
+                    mkdir -p $TMPDIR/old_roots
+                    timestamp=$(date --date="@$(stat -c %Y $TMPDIR/root)" "+%Y-%m-%-d_%H:%M:%S")
+                    mv $TMPDIR/root "$TMPDIR/old_roots/$timestamp"
+                fi
+
+                delete_subvolume_recursively() {
+                    IFS=$'\n'
+                    for IDX in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+                        delete_subvolume_recursively "$TMPDIR/$IDX"
+                    done
+                    btrfs subvolume delete "$1"
+                }
+
+                for IDX in $(find $TMPDIR/old_roots/ -maxdepth 1 -mtime +3); do
+                    delete_subvolume_recursively "$IDX"
+                done
+
+                btrfs subvolume create $TMPDIR/root
+                umount $TMPDIR
+            '';
+        };
+        kernelModules = [
+            "kvm-amd"
+            "vfio"
+            "vfio_pci"
+            "vfio_iommu_type1"
+            "vfio_virqfd"
+        ];
+        extraModulePackages = [ ];
+
+        loader = {
+            grub.enable = lib.mkForce false;
+            systemd-boot.enable = lib.mkForce false;
+            efi.canTouchEfiVariables = true;
+            efi.efiSysMountPoint = "/boot";
+        };
+
+        lanzaboote = {
+            enable = true;
+            pkiBundle = "/var/lib/sbctl";
+        };
+    };
 
     environment.systemPackages = with pkgs; [ sbctl ];
-
-    boot.loader.grub.enable = lib.mkForce false;
-    boot.loader.systemd-boot.enable = lib.mkForce false;
-
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.loader.efi.efiSysMountPoint = "/boot";
-
-    boot.lanzaboote = {
-        enable = true;
-        pkiBundle = "/var/lib/sbctl";
-    };
 
     fileSystems = {
         "/boot" = {
@@ -71,32 +110,6 @@ in
             neededForBoot = true;
         };
     };
-
-    boot.initrd.postResumeCommands = lib.mkAfter ''
-        TMPDIR="/impermanence_btrfs_tmp"
-        mkdir $TMPDIR
-        mount ${disks.main} $TMPDIR
-        if [[ -e $TMPDIR/root ]]; then
-            mkdir -p $TMPDIR/old_roots
-            timestamp=$(date --date="@$(stat -c %Y $TMPDIR/root)" "+%Y-%m-%-d_%H:%M:%S")
-            mv $TMPDIR/root "$TMPDIR/old_roots/$timestamp"
-        fi
-
-        delete_subvolume_recursively() {
-            IFS=$'\n'
-            for IDX in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-                delete_subvolume_recursively "$TMPDIR/$IDX"
-            done
-            btrfs subvolume delete "$1"
-        }
-
-        for IDX in $(find $TMPDIR/old_roots/ -maxdepth 1 -mtime +3); do
-            delete_subvolume_recursively "$IDX"
-        done
-
-        btrfs subvolume create $TMPDIR/root
-        umount $TMPDIR
-    '';
 
     swapDevices = [ { device = disks.swap; } ];
 
