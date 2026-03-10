@@ -52,7 +52,7 @@
         wayland.windowManager.hyprland.settings = {
             input = {
                 kb_layout = "fi";
-                sensitivity = -0.85;
+                sensitivity = -1.7;
             };
             monitor = [
                 "DP-2, 3840x1080@144, 0x1080, 1"
