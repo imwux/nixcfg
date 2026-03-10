@@ -26,7 +26,10 @@
 
     users.users.wux = {
         isNormalUser = true;
-        extraGroups = [ "wheel" ];
+        extraGroups = [
+            "wheel"
+            "disk"
+        ];
     };
 
     i18n.defaultLocale = "en_US.UTF-8";
