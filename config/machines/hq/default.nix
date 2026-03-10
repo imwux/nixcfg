@@ -6,11 +6,6 @@
         ../../nixos/impermanence.nix
     ];
 
-    time.timeZone = "Europe/Helsinki";
-
-    networking.networkmanager.enable = true;
-    users.users.wux.extraGroups = [ "networkmanager" ];
-
     unfree = [
         "steam"
         "steam-unwrapped"
@@ -19,6 +14,14 @@
         "discord"
         "spotify"
         "vscode-extension-ms-vscode-cpptools"
+    ];
+
+    time.timeZone = "Europe/Helsinki";
+
+    networking.networkmanager.enable = true;
+
+    users.users.wux.extraGroups = [
+        "networkmanager"
     ];
 
     virtualisation.libvirtd = {
