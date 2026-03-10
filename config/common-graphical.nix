@@ -57,8 +57,8 @@
 
             nautilus
 
-            coppwr
             meld
+            sourcegit
 
             screenshot
             screenrecord
