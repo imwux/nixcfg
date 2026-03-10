@@ -42,6 +42,8 @@
             prismlauncher
             wasistlos
 
+            element-desktop
+
             freecad
             unstable.kicad
             unstable.orca-slicer
