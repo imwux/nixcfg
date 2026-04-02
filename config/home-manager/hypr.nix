@@ -57,11 +57,6 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
                     "ignorezero, bar"
                 ];
 
-                windowrulev2 = [
-                    "opacity 0.95 0.95,class:^(code)$"
-                    "noblur, class:^(?!(code))"
-                ];
-
                 misc.disable_hyprland_logo = true;
 
                 "$mod" = "SUPER";
