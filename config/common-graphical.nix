@@ -22,8 +22,12 @@
 
     fonts.packages = with pkgs; [ dejavu_fonts ];
 
-    programs.hyprland.enable = true;
-    programs.hyprland.withUWSM = true;
+    programs.hyprland = {
+        enable = true;
+        withUWSM = true;
+        package = pkgs.unstable.hyprland;
+        portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
+    };
     programs.hyprlock.enable = true;
     environment.sessionVariables = {
         NIXOS_OZONE_WL = 1;
