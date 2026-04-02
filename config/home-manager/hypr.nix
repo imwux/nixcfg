@@ -24,21 +24,27 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
                     "rm -f ${wobsock} && mkfifo ${wobsock} && tail -f ${wobsock} | ${pkgs.wob}/bin/wob"
                 ];
 
-                input.touchpad.disable_while_typing = false;
-
                 general = {
-                    "gaps_in" = 0;
-                    "gaps_out" = 0;
+                    layout = lib.mkDefault "dwindle";
+                    gaps_in = 0;
+                    gaps_out = 0;
                     "col.active_border" = "0xFF308FD9";
+                };
+
+                master = {
+                    orientation = "center";
+                    slave_count_for_center_master = 0;
+                    mfact = 0.5;
                 };
 
                 decoration = {
                     rounding = 0;
                     shadow.enabled = false;
                     blur = {
+                        enabled = true;
                         new_optimizations = true;
                         special = false;
-                        size = 10;
+                        size = 6;
                         passes = 3;
                         brightness = 1;
                         noise = 0.01;
@@ -48,16 +54,22 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
                     };
                 };
 
-                blurls = [ "popup_window" ];
-                layerrule = [
-                    "ignorezero, popup_window"
-                    "blurpopups, popup_window"
-                    "blur, bar"
-                    "blurpopups, bar"
-                    "ignorezero, bar"
-                ];
+                layerrule =
+                    let
+                        blurLayer = layer: [
+                            "blur on, match:namespace ${layer}"
+                            "blur_popups on, match:namespace ${layer}"
+                            "ignore_alpha 0, match:namespace ${layer}"
+                        ];
+                    in
+                    builtins.concatMap blurLayer [
+                        "popup_window"
+                        "bar"
+                    ];
 
                 misc.disable_hyprland_logo = true;
+
+                input.touchpad.disable_while_typing = false;
 
                 "$mod" = "SUPER";
                 bind = [
@@ -71,14 +83,12 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
                     "$mod, F, fullscreenstate, -1, 2"
                     "$mod SHIFT, F, fullscreenstate, 2, 2"
 
-                    "$mod, R, submap, resize"
                     "$mod SHIFT, Q, killactive"
 
                     "$mod, TAB, togglespecialworkspace"
                     "$mod SHIFT, TAB, movetoworkspace, special"
 
                     "$mod, SPACE, togglefloating"
-                    "$mod SHIFT, SPACE, pin"
 
                     "$mod, LEFT, movewindow, l"
                     "$mod, RIGHT, movewindow, r"
@@ -86,10 +96,10 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
                     "$mod, DOWN, movewindow, d"
                 ]
                 ++ (builtins.concatLists (
-                    builtins.genList (ws: [
-                        "$mod, ${toString ws}, workspace, ${toString ws}"
-                        "$mod SHIFT, ${toString ws}, movetoworkspace, ${toString ws}"
-                        "$mod SHIFT ALT, ${toString ws}, movetoworkspacesilent, ${toString ws}"
+                    builtins.genList (num: [
+                        "$mod, ${toString num}, workspace, ${toString num}"
+                        "$mod SHIFT, ${toString num}, movetoworkspace, ${toString num}"
+                        "$mod SHIFT ALT, ${toString num}, movetoworkspacesilent, ${toString num}"
                     ]) 10
                 ));
                 bindm = [
@@ -112,15 +122,6 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
                     ", XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && ${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobsock}"
                 ];
             };
-        extraConfig = ''
-            submap = resize
-            binde = , RIGHT, resizeactive, 50 0
-            binde = , UP, resizeactive, 0 50
-            binde = , LEFT, resizeactive, -50 0
-            binde = , DOWN, resizeactive, 0 -50
-            bind = , ESCAPE, submap, reset
-            submap = reset
-        '';
     };
 
     services.hyprpaper.settings.splash = false;

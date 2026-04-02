@@ -60,12 +60,27 @@
                 "DP-2, 3840x1080@144, 0x1080, 1"
                 "HDMI-A-1, 1920x1080, 1280x0, 1"
             ];
+            general.layout = "master";
+            workspace = [
+                "1, DP-2, default:true"
+                "name:second_monitor, monitor:HDMI-A-1, default:true"
+                "name:second_monitor, layoutopt:orientation:left"
+            ]
+            ++ builtins.concatLists (
+                builtins.genList (num: [
+                    "${toString num}, monitor:DP-2"
+                ]) 10
+            );
+            bind = [
+                "$mod, R, layoutmsg, swapwithmaster ignoremaster"
+                "$mod, R, layoutmsg, mfact exact 0.5"
+            ];
         };
 
         services.hyprpaper.settings =
             let
-                # wp_1 = toString pkgs.wallpaper."3840x1080-lion-king";
-                wp_1 = toString pkgs.wallpaper."elysium-dark-3840x1080";
+                wp_1 = toString pkgs.wallpaper."3840x1080-lion-king";
+                # wp_1 = toString pkgs.wallpaper."elysium-dark-3840x1080";
                 wp_2 = toString pkgs.wallpaper."elysium-dark-1920x1080";
             in
             {
