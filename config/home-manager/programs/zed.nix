@@ -44,7 +44,11 @@
             auto_install_extensions = false;
 
             agent_servers = {
-                codex = {
+                claude-acp = {
+                    type = "registry";
+                };
+                codex-acp = {
+                    type = "custom";
                     command = "${pkgs.codex-acp}/bin/codex-acp";
                 };
             };
