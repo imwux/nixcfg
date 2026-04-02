@@ -32,11 +32,11 @@
             minimap.show = "always";
 
             "experimental.theme_overrides" = {
-                "background.appearance" = "blurred";
+                "background.appearance" = "transparent";
                 "background" = "#1F1F1FF0";
                 "editor.background" = "#00000000";
                 "editor.gutter.background" = "#00000000";
-                "editor.active_line.background" = "#212121F0";
+                "editor.active_line.background" = "#12121220";
             };
 
             debugger.dock = "right";
