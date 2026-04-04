@@ -25,6 +25,8 @@
 
             features.edit_prediction_provider = "none";
 
+            calls.mute_on_join = true;
+
             tab_size = 4;
             format_on_save = "on";
             terminal.cursor_shape = "bar";
