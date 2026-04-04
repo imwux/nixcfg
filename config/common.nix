@@ -68,6 +68,8 @@
         NIX_SHELL_PRESERVE_PROMPT = "1";
     };
 
+    services.pcscd.enable = true;
+
     home-manager.users.wux = {
         programs.bash.enable = true;
         programs.git.enable = true;
@@ -75,7 +77,10 @@
         programs.neovim.enable = true;
         programs.gh.enable = true;
 
-        home.packages = with pkgs; [ btop ];
+        home.packages = with pkgs; [
+            btop
+            yubikey-manager
+        ];
 
         xdg.configFile."wgetrc".text = "hsts_file = \"~/.cache/wget-hsts\"";
     };

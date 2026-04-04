@@ -66,6 +66,8 @@
 
             screenshot
             screenrecord
+
+            yubioath-flutter
         ];
 
         xdg.configFile."satty/config.toml".source = (pkgs.formats.toml { }).generate "satty.toml" {
