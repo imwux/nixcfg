@@ -77,6 +77,8 @@
         programs.neovim.enable = true;
         programs.gh.enable = true;
 
+        programs.opencode.enable = true;
+
         home.packages = with pkgs; [
             btop
             yubikey-manager
