@@ -51,7 +51,7 @@
 
             element-desktop
 
-            freecad
+            unstable.freecad
             unstable.kicad
             unstable.orca-slicer
 
