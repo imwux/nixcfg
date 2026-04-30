@@ -22,6 +22,7 @@
 
     users.users.wux.extraGroups = [
         "networkmanager"
+        "wireshark"
     ];
 
     virtualisation.libvirtd = {
@@ -34,6 +35,11 @@
     virtualisation.virtualbox.host.enable = true;
 
     programs.steam.enable = true;
+
+    programs.wireshark = {
+        enable = true;
+        package = pkgs.wireshark;
+    };
 
     environment.systemPackages = with pkgs; [ android-tools ];
 
