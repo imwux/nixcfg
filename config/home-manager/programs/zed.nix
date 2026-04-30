@@ -2,6 +2,7 @@
 {
     programs.zed-editor = {
         package = pkgs.unstable.zed-editor;
+
         extensions = [
             "vscode-dark-modern"
             "git-firefly"
@@ -17,21 +18,12 @@
         mutableUserKeymaps = false;
         mutableUserSettings = false;
         userSettings = {
+            # Appearance
             theme = {
                 mode = "dark";
                 dark = "VSCode Dark Modern";
                 light = "One Light";
             };
-
-            features.edit_prediction_provider = "none";
-
-            calls.mute_on_join = true;
-
-            tab_size = 4;
-            format_on_save = "on";
-            terminal.cursor_shape = "bar";
-
-            minimap.show = "always";
 
             "experimental.theme_overrides" = {
                 "background.appearance" = "transparent";
@@ -41,13 +33,38 @@
                 "editor.active_line.background" = "#12121220";
             };
 
+            # Panels
+            terminal = {
+                shell.program = "/run/current-system/sw/bin/bash";
+                dock = "right";
+            };
+
             debugger.dock = "right";
+            agent.dock = "right";
+
+            project_panel.dock = "left";
+            git_panel.dock = "left";
+            collaboration_panel.dock = "left";
+            outline_panel.dock = "left";
+
+            # Misc
+            tab_size = 4;
+            format_on_save = "on";
+            minimap.show = "always";
+
+            features.edit_prediction_provider = "none";
+
+            calls.mute_on_join = true;
+
+            terminal.cursor_shape = "bar";
 
             auto_install_extensions = false;
 
+            # Agent Servers
             agent_servers = {
                 claude-acp = {
-                    type = "registry";
+                    type = "custom";
+                    command = "${pkgs.claude-code-acp}/bin/claude-code-acp";
                 };
                 codex-acp = {
                     type = "custom";
@@ -55,6 +72,7 @@
                 };
             };
 
+            # Language Servers
             languages = {
                 Nix.language_servers = [
                     "nil"
@@ -85,13 +103,14 @@
                     arguments = [ "--stdio" ];
                 };
                 rust-analyzer.binary.path = "${pkgs.unstable.rust-analyzer}/bin/rust-analyzer";
-                clangd.binary.path = "${pkgs.llvmPackages_20.clang-tools}/bin/clangd";
+                clangd.binary.path = "${pkgs.unstable.llvmPackages_22.clang-tools}/bin/clangd";
                 lua-language-server.binary.path = "${pkgs.lua-language-server}/bin/lua-language-server";
                 pylsp.binary.path = "${pkgs.python312Packages.python-lsp-server}/bin/pylsp";
                 ols.binary.path = "${pkgs.ols}/bin/ols";
                 gopls.binary.path = "${pkgs.gopls}/bin/gopls";
                 package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
                 discord_presence.binary.path = "${pkgs.zed-discord-presence}/bin/discord-presence-lsp";
+                pest.binary.path = "${pkgs.pest-ide-tools}/bin/pest-language-server";
             };
         };
         userKeymaps = [
