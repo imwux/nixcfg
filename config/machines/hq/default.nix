@@ -14,6 +14,7 @@
         "discord"
         "spotify"
         "vscode-extension-ms-vscode-cpptools"
+        "claude-code"
     ];
 
     time.timeZone = "Europe/Helsinki";
@@ -55,6 +56,8 @@
             unstable.orca-slicer
 
             solaar
+
+            claude-code
         ];
 
         wayland.windowManager.hyprland.settings = {
