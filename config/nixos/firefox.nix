@@ -78,6 +78,10 @@
                     install_url = "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi";
                     installation_mode = "force_installed";
                 };
+                "{e4a8a97b-f2ed-450b-b12d-ee082ba24781}" = {
+                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/greasemonkey/latest.xpi";
+                    installation_mode = "force_installed";
+                };
             };
         };
     };
