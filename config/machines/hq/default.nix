@@ -60,31 +60,45 @@
             claude-code
         ];
 
-        wayland.windowManager.hyprland.settings = {
-            input = {
-                kb_layout = "fi";
-                sensitivity = -1.7;
+        wayland.windowManager.hyprland.settings =
+            let
+                toggleOrientation = pkgs.writeShellScript "toggle-orientation" ''
+                    current=$(hyprctl getoption master:orientation | grep -oP '(?<=str: )\w+')
+                    if [ "$current" = "right" ]; then
+                        hyprctl keyword master:orientation center
+                        hyprctl dispatch layoutmsg mfact exact 0.5
+                    else
+                        hyprctl keyword master:orientation right
+                        hyprctl dispatch layoutmsg mfact exact 0.75
+                    fi
+                '';
+            in
+            {
+                input = {
+                    kb_layout = "fi";
+                    sensitivity = -1.7;
+                };
+                monitor = [
+                    "DP-2, 3840x1080@144, 0x1080, 1"
+                    "HDMI-A-1, 1920x1080, 1280x0, 1"
+                ];
+                general.layout = "master";
+                workspace = [
+                    "1, DP-2, default:true"
+                    "name:second_monitor, monitor:HDMI-A-1, default:true"
+                    "name:second_monitor, layoutopt:orientation:left"
+                ]
+                ++ builtins.concatLists (
+                    builtins.genList (num: [
+                        "${toString num}, monitor:DP-2"
+                    ]) 10
+                );
+                bind = [
+                    "$mod, R, layoutmsg, swapwithmaster ignoremaster"
+                    "$mod, R, layoutmsg, mfact exact 0.5"
+                    "$mod, T, exec, ${toggleOrientation}"
+                ];
             };
-            monitor = [
-                "DP-2, 3840x1080@144, 0x1080, 1"
-                "HDMI-A-1, 1920x1080, 1280x0, 1"
-            ];
-            general.layout = "master";
-            workspace = [
-                "1, DP-2, default:true"
-                "name:second_monitor, monitor:HDMI-A-1, default:true"
-                "name:second_monitor, layoutopt:orientation:left"
-            ]
-            ++ builtins.concatLists (
-                builtins.genList (num: [
-                    "${toString num}, monitor:DP-2"
-                ]) 10
-            );
-            bind = [
-                "$mod, R, layoutmsg, swapwithmaster ignoremaster"
-                "$mod, R, layoutmsg, mfact exact 0.5"
-            ];
-        };
 
         services.hyprpaper.settings =
             let
