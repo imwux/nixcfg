@@ -10,9 +10,8 @@
         "steam"
         "steam-unwrapped"
         "discord"
-        "vscode"
-        "discord"
         "spotify"
+        "vscode"
         "vscode-extension-ms-vscode-cpptools"
         "claude-code"
     ];
@@ -44,6 +43,7 @@
 
     home-manager.users.wux = {
         home.packages = with pkgs; [
+            vesktop
             prismlauncher
 
             unstable.freecad

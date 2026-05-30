@@ -148,11 +148,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765067860,
-        "narHash": "sha256-aD1p3k2QPRKUohRVP2btMybOiUH4htWPggeb6knBJX0=",
+        "lastModified": 1780172605,
+        "narHash": "sha256-CDW70AwPOLwpxIQ4sbZmnkjwS91e+LGZSO1cfkSOhRQ=",
         "ref": "main",
-        "rev": "50d019357013f7ccfe3b6c5ab10e241d181d4ace",
-        "revCount": 3,
+        "rev": "055ad4dfbb15b34691283afb186199cbfcccd502",
+        "revCount": 4,
         "type": "git",
         "url": "ssh://git@github.com/imwux/nixcfg-private.git"
       },
