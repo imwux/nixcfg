@@ -14,7 +14,8 @@ hl.bind(mod("F"), hl.dsp.window.fullscreen_state({ internal = -1, client = 2 }))
 hl.bind(mod("SHIFT + F"), hl.dsp.window.fullscreen_state({ internal = 2, client = 2 }))
 
 -- Window binds
-hl.bind(mod("SHIFT + Q"), hl.dsp.window.kill())
+hl.bind(mod("SHIFT + Q"), hl.dsp.window.close())
+hl.bind(mod("SHIFT + ALT + Q"), hl.dsp.window.kill())
 hl.bind(mod("TAB"), hl.dsp.workspace.toggle_special())
 hl.bind(mod("SHIFT + TAB"), hl.dsp.window.move({ workspace = "special" }))
 hl.bind(mod("SPACE"), hl.dsp.window.float({ action = "toggle" }))
