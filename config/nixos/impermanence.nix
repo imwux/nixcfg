@@ -56,13 +56,13 @@ in
                 ".config/Code"
                 ".config/discord"
                 ".config/FreeCAD"
-                ".config/gdb" # Maybe we hardcode this using nix? (gdbinit)
+                ".config/gdb"
                 ".config/GIMP"
                 ".config/imhex"
                 ".config/kicad"
                 ".config/OrcaSlicer"
                 ".config/spotify"
-                ".config/uwsm" # Maybe hardcode this too ?
+                ".config/uwsm"
                 ".config/vlc"
                 ".config/gh"
                 ".config/SourceGit"
@@ -70,21 +70,17 @@ in
                 # .local
                 ".local/state/wireplumber"
                 ".local/share/FreeCAD"
-                ".local/share/gvfs-metadata" # Might be unecessary
                 ".local/share/imhex"
                 ".local/share/kicad"
                 ".local/share/orca-slicer"
                 ".local/share/PrismLauncher"
                 ".local/share/Steam"
-                ".local/share/zed" # We could hardcode the things we want here for fun too
+                ".local/share/zed"
                 ".local/share/hyprland"
             ];
             files = [
                 ".bash_history"
                 ".wget-hsts"
-
-                # .local
-                ".local/share/recently-used.xbel"
             ];
         };
     };
