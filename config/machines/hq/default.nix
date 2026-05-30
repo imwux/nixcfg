@@ -42,8 +42,6 @@
         package = pkgs.wireshark;
     };
 
-    environment.systemPackages = with pkgs; [ android-tools ];
-
     home-manager.users.wux = {
         home.packages = with pkgs; [
             prismlauncher
