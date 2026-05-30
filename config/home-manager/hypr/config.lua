@@ -10,8 +10,26 @@ hl.on("hyprland.start", function()
 end)
 
 -- Fullscreen binds
-hl.bind(mod("F"), hl.dsp.window.fullscreen_state({ internal = -1, client = 2 }))
-hl.bind(mod("SHIFT + F"), hl.dsp.window.fullscreen_state({ internal = 2, client = 2 }))
+hl.bind(mod("F"), function()
+    local client_state = hl.get_active_window().fullscreen_client
+    local internal_state = hl.get_active_window().fullscreen
+
+    local state = 0
+    if client_state ~= 2 then
+        state = 2
+    end
+    hl.dispatch(hl.dsp.window.fullscreen_state({ internal = internal_state, client = state }))
+end)
+hl.bind(mod("SHIFT + F"), function()
+    local client_state = hl.get_active_window().fullscreen_client
+    local internal_state = hl.get_active_window().fullscreen
+
+    local state = 0
+    if internal_state ~= 2 then
+        state = 2
+    end
+    hl.dispatch(hl.dsp.window.fullscreen_state({ internal = state, client = client_state }))
+end)
 
 -- Window binds
 hl.bind(mod("SHIFT + Q"), hl.dsp.window.close())
