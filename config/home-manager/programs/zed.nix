@@ -52,7 +52,7 @@
             format_on_save = "on";
             minimap.show = "always";
 
-            features.edit_prediction_provider = "none";
+            edit_predictions.provider = "none";
 
             calls.mute_on_join = true;
 
@@ -109,7 +109,6 @@
                 ols.binary.path = "${pkgs.ols}/bin/ols";
                 gopls.binary.path = "${pkgs.gopls}/bin/gopls";
                 package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
-                discord_presence.binary.path = "${pkgs.zed-discord-presence}/bin/discord-presence-lsp";
                 pest.binary.path = "${pkgs.pest-ide-tools}/bin/pest-language-server";
             };
         };
