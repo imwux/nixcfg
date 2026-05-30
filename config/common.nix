@@ -74,7 +74,6 @@
         programs.bash.enable = true;
         programs.git.enable = true;
         programs.ssh.enable = true;
-        programs.neovim.enable = true;
         programs.gh.enable = true;
 
         programs.opencode.enable = true;
