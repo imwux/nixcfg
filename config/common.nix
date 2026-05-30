@@ -70,6 +70,11 @@
 
     services.pcscd.enable = true;
 
+    programs.vim = {
+        enable = true;
+        defaultEditor = true;
+    };
+
     home-manager.users.wux = {
         programs.bash.enable = true;
         programs.git.enable = true;
