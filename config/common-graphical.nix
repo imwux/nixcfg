@@ -22,6 +22,10 @@
 
     fonts.packages = with pkgs; [ dejavu_fonts ];
 
+    programs.uwsm.enable = true;
+
+    services.dbus.implementation = "broker";
+
     programs.hyprland = {
         enable = true;
         withUWSM = true;
