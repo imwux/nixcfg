@@ -1,7 +1,7 @@
 { ... }:
 {
     imports = [
-        ./hypr.nix
+        ./hypr
         ./dunst.nix
 
         ./programs/zed.nix

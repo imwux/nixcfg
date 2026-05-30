@@ -26,7 +26,6 @@
     ];
 
     services.upower.enable = true;
-    programs.light.enable = true;
     services.playerctld.enable = true;
 
     home-manager.users.wux = {

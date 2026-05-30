@@ -102,6 +102,8 @@
                 package = pkgs.adw-gtk3;
             };
 
+            gtk4.theme = null;
+
             iconTheme = {
                 package = pkgs.adwaita-icon-theme;
                 name = "Adwaita";

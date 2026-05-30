@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
     imports = [
         ./hardware.nix
@@ -47,9 +47,6 @@
     home-manager.users.wux = {
         home.packages = with pkgs; [
             prismlauncher
-            wasistlos
-
-            element-desktop
 
             unstable.freecad
             unstable.kicad
@@ -61,61 +58,119 @@
         ];
 
         wayland.windowManager.hyprland.settings =
-            let
-                toggleOrientation = pkgs.writeShellScript "toggle-orientation" ''
-                    current=$(hyprctl getoption master:orientation | grep -oP '(?<=str: )\w+')
-                    if [ "$current" = "right" ]; then
-                        hyprctl keyword master:orientation center
-                        hyprctl dispatch layoutmsg mfact exact 0.5
-                    else
-                        hyprctl keyword master:orientation right
-                        hyprctl dispatch layoutmsg mfact exact 0.75
-                    fi
-                '';
-            in
+
             {
-                input = {
-                    kb_layout = "fi";
-                    sensitivity = -1.7;
+                config = {
+                    input = {
+                        kb_layout = "fi";
+                        sensitivity = -1.7;
+                    };
+                    general.layout = "master";
                 };
-                monitor = [
-                    "DP-2, 3840x1080@144, 0x1080, 1"
-                    "HDMI-A-1, 1920x1080, 1280x0, 1"
-                ];
-                general.layout = "master";
-                workspace = [
-                    "1, DP-2, default:true"
-                    "name:second_monitor, monitor:HDMI-A-1, default:true"
-                    "name:second_monitor, layoutopt:orientation:left"
+
+                workspace_rule = [
+                    {
+                        workspace = "1";
+                        monitor = "DP-2";
+                        default = true;
+                    }
+                    {
+                        workspace = "special:special";
+                        monitor = "DP-2";
+                        layout = "master";
+                        layout_opts = {
+                            orientation = "center";
+                        };
+                    }
+                    {
+                        workspace = "name:second_monitor";
+                        monitor = "HDMI-A-1";
+                        default = true;
+                        layout = "dwindle";
+                    }
                 ]
-                ++ builtins.concatLists (
-                    builtins.genList (num: [
-                        "${toString num}, monitor:DP-2"
-                    ]) 10
-                );
+                ++ map (num: {
+                    workspace = toString num;
+                    monitor = "DP-2";
+                }) (lib.range 0 9);
+
                 bind = [
-                    "$mod, R, layoutmsg, swapwithmaster ignoremaster"
-                    "$mod, R, layoutmsg, mfact exact 0.5"
-                    "$mod, T, exec, ${toggleOrientation}"
+                    {
+                        _args = [
+                            (lib.generators.mkLuaInline "mod_key .. \" + R\"")
+                            (lib.generators.mkLuaInline ''
+                                function()
+                                    if hl.get_active_workspace().tiled_layout ~= "master" then
+                                        return
+                                    end
+
+                                    hl.dispatch(hl.dsp.layout("swapwithmaster ignoremaster"))
+
+                                    local orientation = hl.get_config("master.orientation")
+                                    if orientation == "right" then
+                                        hl.dispatch(hl.dsp.layout("mfact exact 0.75"))
+                                    else
+                                        hl.dispatch(hl.dsp.layout("mfact exact 0.5"))
+                                    end
+                                end
+                            '')
+                        ];
+                    }
+                    {
+                        _args = [
+                            (lib.generators.mkLuaInline "mod_key .. \" + T\"")
+                            (lib.generators.mkLuaInline ''
+                                function()
+                                    if hl.get_active_workspace().tiled_layout ~= "master" then
+                                        return
+                                    end
+
+                                    local orientation = hl.get_config("master.orientation")
+                                    if orientation == "right" then
+                                        hl.notification.create({ text = "Center Layout", timeout = 5000, color = "0xFF0394fc" })
+                                        hl.dispatch(hl.dsp.layout("orientationcenter"))
+                                        hl.dispatch(hl.dsp.layout("mfact exact 0.5"))
+                                        hl.config({ master = { orientation = "center" }})
+                                    else
+                                        hl.notification.create({ text = "Right Layout", timeout = 5000, color = "0xFF0394fc" })
+                                        hl.dispatch(hl.dsp.layout("orientationright"))
+                                        hl.dispatch(hl.dsp.layout("mfact exact 0.75"))
+                                        hl.config({ master = { orientation = "right" }})
+                                    end
+                                end
+                            '')
+                        ];
+                    }
+                ];
+
+                monitor = [
+                    {
+                        output = "DP-2";
+                        mode = "3840x1080@144";
+                        position = "0x1080";
+                        scale = 1;
+                    }
+                    {
+                        output = "HDMI-A-1";
+                        mode = "1920x1080";
+                        position = "1280x0";
+                        scale = 1;
+                    }
                 ];
             };
 
-        services.hyprpaper.settings =
-            let
-                wp_1 = toString pkgs.wallpaper."3840x1080-lion-king";
-                # wp_1 = toString pkgs.wallpaper."elysium-dark-3840x1080";
-                wp_2 = toString pkgs.wallpaper."elysium-dark-1920x1080";
-            in
-            {
-                preload = [
-                    wp_1
-                    wp_2
-                ];
-                wallpaper = [
-                    "DP-2,${wp_1}"
-                    "HDMI-A-1,${wp_2}"
-                ];
-            };
+        services.hyprpaper.settings = {
+            wallpaper = [
+                {
+                    monitor = "DP-2";
+                    path = toString pkgs.wallpaper."3840x1080-lion-king";
+                }
+                {
+                    monitor = "HDMI-A-1";
+                    path = toString pkgs.wallpaper."elysium-dark-1920x1080";
+                }
+            ];
+        };
     };
 
     system.stateVersion = "25.05";

@@ -64,7 +64,7 @@
             agent_servers = {
                 claude-acp = {
                     type = "custom";
-                    command = "${pkgs.claude-code-acp}/bin/claude-code-acp";
+                    command = "${pkgs.claude-agent-acp}/bin/claude-agent-acp";
                 };
                 codex-acp = {
                     type = "custom";
