@@ -44,7 +44,9 @@
     home-manager.users.wux = {
         home.packages = with pkgs; [
             vesktop
-            prismlauncher
+            karere
+
+            unstable.prismlauncher
 
             unstable.freecad
             unstable.kicad

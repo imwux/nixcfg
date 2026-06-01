@@ -71,6 +71,7 @@ in
                 ".local/state/wireplumber"
                 ".local/share/FreeCAD"
                 ".local/share/imhex"
+                ".local/share/karere"
                 ".local/share/kicad"
                 ".local/share/orca-slicer"
                 ".local/share/PrismLauncher"
