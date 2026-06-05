@@ -2,13 +2,6 @@ function mod(key)
     return mod_key .. " + " .. key
 end
 
--- Autostart
-hl.on("hyprland.start", function()
-    for command in ipairs(autostart_commands) do
-        hl.exec_cmd(command)
-    end
-end)
-
 -- Fullscreen binds
 hl.bind(mod("F"), function()
     local client_state = hl.get_active_window().fullscreen_client

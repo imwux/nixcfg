@@ -74,8 +74,9 @@
             yubioath-flutter
         ];
 
-        xdg.configFile."satty/config.toml".source = (pkgs.formats.toml { }).generate "satty.toml" {
-            general = {
+        programs.satty = {
+            enable = true;
+            settings.general = {
                 corner-roundness = 4;
                 copy-command = "wl-copy";
             };
@@ -87,6 +88,23 @@
         programs.hyprlock.enable = true;
         services.hyprpaper.enable = true;
         services.dunst.enable = true;
+
+        services.wob = {
+            enable = true;
+            settings = {
+                "" = {
+                    timeout = 2000;
+                    orientation = "vertical";
+                    height = 400;
+                    width = 75;
+                };
+                "style.muted" = {
+                    border_color = "EB4034";
+                };
+            };
+        };
+
+        services.cliphist.enable = true;
 
         home.pointerCursor = {
             name = "phinger-cursors-dark";

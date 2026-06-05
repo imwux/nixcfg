@@ -24,12 +24,6 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
             {
                 mod_key._var = "SUPER";
 
-                autostart_commands._var = [
-                    "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store"
-                    "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store"
-                    "rm -f ${wobsock} && mkfifo ${wobsock} && tail -f ${wobsock} | ${pkgs.wob}/bin/wob"
-                ];
-
                 commands._var = {
                     media = {
                         play_pause = "${pkgs.playerctl}/bin/playerctl play-pause";
@@ -38,15 +32,30 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
                     };
 
                     audio = {
-                        raise_volume = "${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && ${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobsock}";
-                        lower_volume = "${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && ${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobsock}";
+                        raise_volume = "
+                            ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+                            ${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobsock}
+                        ";
+                        lower_volume = "
+                            ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+                            ${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobsock}
+                        ";
                         toggle_mic_mute = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
-                        toggle_mute = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > ${wobsock}) || ${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobsock}";
+                        toggle_mute = "
+                            ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+                            (${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo \"0 muted\" > ${wobsock}) || ${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobsock}
+                        ";
                     };
 
                     brightness = {
-                        up = "${pkgs.brightnessctl}/bin/brightnessctl set +5 && ${pkgs.brightnessctl}/bin/g > ${wobsock}";
-                        down = "${pkgs.brightnessctl}/bin/brightnessctl s -5 && ${pkgs.brightnessctl}/bin/g > ${wobsock}";
+                        up = "
+                            ${pkgs.brightnessctl}/bin/brightnessctl s +5%
+                            echo $(( $(${pkgs.brightnessctl}/bin/brightnessctl g) * 100 / $(${pkgs.brightnessctl}/bin/brightnessctl m) )) > ${wobsock}
+                        ";
+                        down = "
+                            ${pkgs.brightnessctl}/bin/brightnessctl s 5%-
+                            echo $(( $(${pkgs.brightnessctl}/bin/brightnessctl g) * 100 / $(${pkgs.brightnessctl}/bin/brightnessctl m) )) > ${wobsock}
+                        ";
                     };
 
                     new_terminal = "${pkgs.alacritty}/bin/alacritty";
