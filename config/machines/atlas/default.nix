@@ -1,5 +1,6 @@
 {
     pkgs,
+    lib,
     ...
 }:
 {
@@ -14,6 +15,7 @@
         "discord"
         "spotify"
         "vscode-extension-ms-vscode-cpptools"
+        "claude-code"
     ];
 
     time.timeZone = "Europe/Helsinki";
@@ -34,29 +36,41 @@
         ];
 
         wayland.windowManager.hyprland.settings = {
-            monitor = [ ",preferred,auto,1.5" ];
-
-            input = {
-                kb_layout = "fi";
-                touchpad = {
-                    disable_while_typing = false;
-                    natural_scroll = true;
-                    scroll_factor = 0.5;
+            config = {
+                input = {
+                    kb_layout = "fi";
+                    touchpad = {
+                        disable_while_typing = false;
+                        natural_scroll = true;
+                        scroll_factor = 0.5;
+                    };
                 };
+
+                gestures = {
+                    workspace_swipe_create_new = false;
+                    workspace_swipe_forever = true;
+                };
+
+                animations.enabled = false;
+                decoration.blur.enabled = lib.mkForce false;
             };
+
+            monitor = [
+                {
+                    output = "";
+                    mode = "preferred";
+                    position = "auto";
+                    scale = 1.5;
+                }
+            ];
 
             gesture = [
-                "3, horizontal, workspace"
+                {
+                    fingers = 3;
+                    direction = "horizontal";
+                    action = "workspace";
+                }
             ];
-            gestures = {
-                workspace_swipe_create_new = false;
-                workspace_swipe_forever = true;
-            };
-
-            misc.vfr = true;
-
-            animations.enabled = false;
-            decoration.blur.enabled = false;
         };
 
         services.hyprpaper.settings =
