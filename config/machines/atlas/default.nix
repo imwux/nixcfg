@@ -73,16 +73,14 @@
             ];
         };
 
-        services.hyprpaper.settings =
-            let
-                wp_1 = toString pkgs.wallpaper.cute-fox;
-            in
-            {
-                preload = [ wp_1 ];
-                wallpaper = [
-                    "eDP-1,${wp_1}"
-                ];
-            };
+        services.hyprpaper.settings = {
+            wallpaper = [
+                {
+                    monitor = "eDP-1";
+                    path = toString pkgs.wallpaper.cute-fox;
+                }
+            ];
+        };
     };
 
     system.stateVersion = "25.11";
