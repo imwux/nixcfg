@@ -9,6 +9,7 @@ let
         main = "/dev/disk/by-uuid/a6e23491-5849-4575-8b0a-9b1993db6151";
         swap = "/dev/disk/by-uuid/268f3ad9-0b9e-4517-a0ef-a724600261ac";
     };
+    mainDevUnit = "dev-disk-by\x2duuid-a6e23491\x2d5849\x2d4575\x2d8b0a\x2d9b1993db6151.device";
 in
 {
     boot.initrd.availableKernelModules = [
@@ -70,7 +71,11 @@ in
         services.impermanence-btrfs = {
             description = "Btrfs root migration for impermanence";
             wantedBy = [ "initrd.target" ];
-            after = [ "systemd-hibernate-resume.service" ];
+            after = [
+                "systemd-hibernate-resume.service"
+                mainDevUnit
+            ];
+            requires = [ mainDevUnit ];
             before = [ "sysroot.mount" ];
             unitConfig.DefaultDependencies = false;
             serviceConfig.Type = "oneshot";
