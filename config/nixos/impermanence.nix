@@ -54,7 +54,7 @@ in
                 ".config/aseprite"
                 ".config/blender"
                 ".config/Code"
-                ".config/discord"
+                ".config/vesktop"
                 ".config/FreeCAD"
                 ".config/gdb"
                 ".config/GIMP"

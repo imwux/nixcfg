@@ -59,7 +59,6 @@
     home-manager.users.wux = {
         home.packages = with pkgs; [
             spotify
-            discord
             gimp
             vlc
 
