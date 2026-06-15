@@ -34,8 +34,8 @@ in
 
                 services.impermanence-btrfs = {
                     description = "Btrfs root migration for impermanence";
-                    wantedBy = [ "initrd.target" ];
-                    after = [ "systemd-hibernate-resume.service" ];
+                    wantedBy = [ "initrd-root-device.target" ];
+                    after = [ "initrd-root-device.target" ];
                     before = [ "sysroot.mount" ];
                     unitConfig.DefaultDependencies = false;
                     serviceConfig.Type = "oneshot";
