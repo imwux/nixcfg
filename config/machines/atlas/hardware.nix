@@ -9,27 +9,75 @@ let
         main = "/dev/disk/by-uuid/a6e23491-5849-4575-8b0a-9b1993db6151";
         swap = "/dev/disk/by-uuid/268f3ad9-0b9e-4517-a0ef-a724600261ac";
     };
-    mainDevUnit = "dev-disk-by\x2duuid-a6e23491\x2d5849\x2d4575\x2d8b0a\x2d9b1993db6151.device";
 in
 {
-    boot.initrd.availableKernelModules = [
-        "nvme"
-        "xhci_pci"
-        "thunderbolt"
-        "usb_storage"
-        "sd_mod"
-        "sdhci_pci"
-    ];
-    boot.initrd.kernelModules = [ ];
+    nixpkgs.hostPlatform = "x86_64-linux";
 
-    boot.kernelModules = [ "kvm-amd" ];
-    boot.extraModulePackages = [ ];
+    networking.useDHCP = lib.mkDefault true;
 
-    boot.loader.grub.enable = lib.mkForce false;
-    boot.loader.systemd-boot.enable = true;
+    boot = {
+        kernelModules = [ "kvm-amd" ];
+        extraModulePackages = [ ];
 
-    boot.loader.efi.efiSysMountPoint = "/boot";
-    boot.loader.efi.canTouchEfiVariables = true;
+        loader = {
+            grub.enable = lib.mkForce false;
+            systemd-boot.enable = true;
+
+            efi = {
+                efiSysMountPoint = "/boot";
+                canTouchEfiVariables = true;
+            };
+        };
+
+        initrd = {
+            availableKernelModules = [
+                "nvme"
+                "xhci_pci"
+                "thunderbolt"
+                "usb_storage"
+                "sd_mod"
+                "sdhci_pci"
+            ];
+            kernelModules = [ ];
+
+            systemd = {
+                enable = true;
+
+                services.impermanence-btrfs = {
+                    description = "Btrfs root migration for impermanence";
+                    wantedBy = [ "initrd-root-device.target" ];
+                    after = [
+                        "initrd-root-device.target"
+                    ];
+                    before = [ "sysroot.mount" ];
+                    unitConfig.DefaultDependencies = false;
+                    serviceConfig.Type = "oneshot";
+                    script = ''
+                        TMPDIR="/impermanence_btrfs_tmp"
+                        mkdir $TMPDIR
+                        mount ${disks.main} $TMPDIR
+                        if [[ -e $TMPDIR/root ]]; then
+                            mkdir -p $TMPDIR/old_roots
+                            timestamp=$(date --date="@$(stat -c %Y $TMPDIR/root)" "+%Y-%m-%-d_%H:%M:%S")
+                            mv $TMPDIR/root "$TMPDIR/old_roots/$timestamp"
+                        fi
+                        delete_subvolume_recursively() {
+                            IFS=$'\n'
+                            for IDX in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+                                delete_subvolume_recursively "$TMPDIR/$IDX"
+                            done
+                            btrfs subvolume delete "$1"
+                        }
+                        for IDX in $(find $TMPDIR/old_roots/ -maxdepth 1 -mtime +3); do
+                            delete_subvolume_recursively "$IDX"
+                        done
+                        btrfs subvolume create $TMPDIR/root
+                        umount $TMPDIR
+                    '';
+                };
+            };
+        };
+    };
 
     fileSystems = {
         "/boot" = {
@@ -64,49 +112,6 @@ in
     };
 
     swapDevices = [ { device = disks.swap; } ];
-
-    boot.initrd.systemd = {
-        enable = true;
-
-        services.impermanence-btrfs = {
-            description = "Btrfs root migration for impermanence";
-            wantedBy = [ "initrd.target" ];
-            after = [
-                "systemd-hibernate-resume.service"
-                mainDevUnit
-            ];
-            requires = [ mainDevUnit ];
-            before = [ "sysroot.mount" ];
-            unitConfig.DefaultDependencies = false;
-            serviceConfig.Type = "oneshot";
-            script = ''
-                TMPDIR="/impermanence_btrfs_tmp"
-                mkdir $TMPDIR
-                mount ${disks.main} $TMPDIR
-                if [[ -e $TMPDIR/root ]]; then
-                    mkdir -p $TMPDIR/old_roots
-                    timestamp=$(date --date="@$(stat -c %Y $TMPDIR/root)" "+%Y-%m-%-d_%H:%M:%S")
-                    mv $TMPDIR/root "$TMPDIR/old_roots/$timestamp"
-                fi
-                delete_subvolume_recursively() {
-                    IFS=$'\n'
-                    for IDX in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-                        delete_subvolume_recursively "$TMPDIR/$IDX"
-                    done
-                    btrfs subvolume delete "$1"
-                }
-                for IDX in $(find $TMPDIR/old_roots/ -maxdepth 1 -mtime +3); do
-                    delete_subvolume_recursively "$IDX"
-                done
-                btrfs subvolume create $TMPDIR/root
-                umount $TMPDIR
-            '';
-        };
-    };
-
-    networking.useDHCP = lib.mkDefault true;
-
-    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
     services.fwupd.enable = true;
 
