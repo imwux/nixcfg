@@ -55,6 +55,8 @@
             solaar
 
             claude-code
+
+            sbctl
         ];
 
         wayland.windowManager.hyprland.settings = {

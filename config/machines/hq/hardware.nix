@@ -15,8 +15,34 @@ in
 {
     imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
+    nixpkgs.hostPlatform = "x86_64-linux";
+
+    networking.useDHCP = lib.mkDefault true;
+
     boot = {
         kernelParams = [ "iommu=pt" ];
+        kernelModules = [
+            "kvm-amd"
+            "vfio"
+            "vfio_pci"
+            "vfio_iommu_type1"
+            "vfio_virqfd"
+        ];
+        extraModulePackages = [ ];
+
+        loader = {
+            grub.enable = lib.mkForce false;
+            systemd-boot.enable = lib.mkForce false;
+            efi = {
+                canTouchEfiVariables = true;
+                efiSysMountPoint = "/boot";
+            };
+        };
+
+        lanzaboote = {
+            enable = true;
+            pkiBundle = "/var/lib/sbctl";
+        };
 
         initrd = {
             availableKernelModules = [
@@ -64,29 +90,7 @@ in
                 };
             };
         };
-        kernelModules = [
-            "kvm-amd"
-            "vfio"
-            "vfio_pci"
-            "vfio_iommu_type1"
-            "vfio_virqfd"
-        ];
-        extraModulePackages = [ ];
-
-        loader = {
-            grub.enable = lib.mkForce false;
-            systemd-boot.enable = lib.mkForce false;
-            efi.canTouchEfiVariables = true;
-            efi.efiSysMountPoint = "/boot";
-        };
-
-        lanzaboote = {
-            enable = true;
-            pkiBundle = "/var/lib/sbctl";
-        };
     };
-
-    environment.systemPackages = with pkgs; [ sbctl ];
 
     fileSystems = {
         "/boot" = {
@@ -121,10 +125,6 @@ in
     };
 
     swapDevices = [ { device = disks.swap; } ];
-
-    networking.useDHCP = lib.mkDefault true;
-
-    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
     hardware = {
         enableRedistributableFirmware = true;
