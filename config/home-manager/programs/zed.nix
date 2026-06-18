@@ -121,6 +121,8 @@
                     "alt-shift-up" = "editor::DuplicateLineUp";
                     "alt-shift-down" = "editor::DuplicateLineDown";
                     "ctrl-shift-space" = "editor::ShowSignatureHelp";
+                    "ctrl-enter" = "editor::GoToDefinition";
+                    "ctrl-shift-enter" = "editor::GoToDefinitionSplit";
                 };
             }
         ];
