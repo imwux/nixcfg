@@ -32,6 +32,8 @@
 
     home-manager.users.wux = {
         home.packages = with pkgs; [
+            vesktop
+
             status
         ];
 
