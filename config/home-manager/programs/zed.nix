@@ -37,6 +37,10 @@
             terminal = {
                 shell.program = "/run/current-system/sw/bin/bash";
                 dock = "right";
+                env = rec {
+                    EDITOR = "zed --wait";
+                    VISUAL = EDITOR;
+                };
             };
 
             debugger.dock = "right";
