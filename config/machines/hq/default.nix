@@ -23,6 +23,7 @@
     users.users.wux.extraGroups = [
         "networkmanager"
         "wireshark"
+        "libvirtd"
     ];
 
     virtualisation.libvirtd = {
@@ -33,6 +34,8 @@
         };
     };
     virtualisation.virtualbox.host.enable = true;
+
+    programs.virt-manager.enable = true;
 
     programs.steam.enable = true;
 
