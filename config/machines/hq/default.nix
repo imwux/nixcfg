@@ -70,7 +70,7 @@
         wayland.windowManager.hyprland.settings = {
             config = {
                 input = {
-                    kb_layout = "fi";
+                    kb_layout = "us";
                     sensitivity = -1.7;
                 };
                 general.layout = "master";
