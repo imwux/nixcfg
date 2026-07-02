@@ -44,6 +44,11 @@
         package = pkgs.wireshark;
     };
 
+    environment.systemPackages = with pkgs; [
+        wineWow64Packages.stable
+        winetricks
+    ];
+
     home-manager.users.wux = {
         home.packages = with pkgs; [
             vesktop
