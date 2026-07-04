@@ -64,6 +64,8 @@
 
             auto_install_extensions = false;
 
+            disable_ai = true;
+
             # Agent Servers
             agent_servers = {
                 claude-acp = {
