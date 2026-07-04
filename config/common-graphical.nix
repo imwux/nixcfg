@@ -58,7 +58,9 @@
 
     home-manager.users.wux = {
         home.packages = with pkgs; [
+            element-desktop
             spotify
+
             gimp
             vlc
 
