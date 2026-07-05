@@ -77,14 +77,12 @@
             ];
         };
 
-        services.hyprpaper.settings = {
-            wallpaper = [
-                {
-                    monitor = "eDP-1";
-                    path = toString pkgs.wallpaper.cute-fox;
-                }
-            ];
-        };
+        services.hyprpaper.settings.wallpaper = [
+            {
+                monitor = "eDP-1";
+                path = toString pkgs.wallpaper.pastel-nixos;
+            }
+        ];
     };
 
     system.stateVersion = "25.11";

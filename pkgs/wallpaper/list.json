@@ -48,6 +48,12 @@
         "sha256": "0d3m2hqkd30n962f2qqz95hb4541dmpapfyqw4dp6frzswvw7955"
     },
     {
+        "name": "pastel-nixos",
+        "ext": "jpeg",
+        "id": "4lhqJaJ",
+        "sha256": "0kypb6lsh0bdb99pymp2q931lzshgplwl7ilwiryl7hwqn1vj15i"
+    },
+    {
         "name": "3840x1080-valorant-omen",
         "ext": "jpeg",
         "id": "7meeIR4",
