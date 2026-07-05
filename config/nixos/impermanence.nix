@@ -72,6 +72,7 @@ in
                 ".local/share/FreeCAD"
                 ".local/share/imhex"
                 ".local/share/karere"
+                ".local/share/keyrings"
                 ".local/share/kicad"
                 ".local/share/orca-slicer"
                 ".local/share/PrismLauncher"

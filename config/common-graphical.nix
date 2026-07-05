@@ -56,6 +56,11 @@
 
     programs.firefox.enable = true;
 
+    security.pam.services = {
+        login.enableGnomeKeyring = true;
+        hyprlock.enableGnomeKeyring = true;
+    };
+
     home-manager.users.wux = {
         home.packages = with pkgs; [
             element-desktop
@@ -65,6 +70,9 @@
             vlc
 
             nautilus
+
+            gcr
+            seahorse
 
             meld
             sourcegit
@@ -89,6 +97,14 @@
         programs.hyprlock.enable = true;
         services.hyprpaper.enable = true;
         services.dunst.enable = true;
+
+        services.gnome-keyring = {
+            enable = true;
+            components = [
+                "pkcs11"
+                "secrets"
+            ];
+        };
 
         services.wob = {
             enable = true;
