@@ -53,6 +53,7 @@ in
                 ".config/aseprite"
                 ".config/blender"
                 ".config/Code"
+                ".config/Element"
                 ".config/vesktop"
                 ".config/FreeCAD"
                 ".config/gdb"
