@@ -61,7 +61,7 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
                     new_terminal = "${pkgs.alacritty}/bin/alacritty";
                     run = "${pkgs.bemenu}/bin/bemenu-run";
                     screenshot = "${pkgs.screenshot}/bin/screenshot";
-                    lockscreen = "${pkgs.screenshot}/bin/hyprlock";
+                    lockscreen = "${pkgs.hyprlock}/bin/hyprlock";
                     clipboardhistory = "${pkgs.cliphist}/bin/cliphist list | bemenu | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy";
                 };
 
