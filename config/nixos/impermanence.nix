@@ -27,6 +27,7 @@ in
         hideMounts = true;
         directories = [
             "/var/log"
+            "/var/cache/tuigreet"
             "/var/lib/nixos"
             "/var/lib/sbctl"
             "/var/lib/systemd/coredump"
