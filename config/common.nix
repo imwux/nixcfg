@@ -86,6 +86,7 @@
         home.packages = with pkgs; [
             btop
             yubikey-manager
+            git-filter-repo
         ];
 
         xdg.configFile."wgetrc".text = "hsts_file = \"~/.cache/wget-hsts\"";
