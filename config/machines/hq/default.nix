@@ -49,6 +49,8 @@
         winetricks
     ];
 
+    services.hardware.openrgb.enable = true;
+
     home-manager.users.wux = {
         home.packages = with pkgs; [
             vesktop

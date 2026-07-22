@@ -61,6 +61,7 @@ in
                 ".config/GIMP"
                 ".config/imhex"
                 ".config/kicad"
+                ".config/OpenRGB"
                 ".config/OrcaSlicer"
                 ".config/spotify"
                 ".config/uwsm"
