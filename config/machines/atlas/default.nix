@@ -30,6 +30,8 @@
     services.upower.enable = true;
     services.playerctld.enable = true;
 
+    services.blueman.enable = true;
+
     home-manager.users.wux = {
         home.packages = with pkgs; [
             vesktop

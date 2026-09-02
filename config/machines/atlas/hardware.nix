@@ -116,6 +116,11 @@ in
     services.fwupd.enable = true;
 
     hardware = {
+        bluetooth = {
+            enable = true;
+            powerOnBoot = false;
+        };
+
         enableRedistributableFirmware = true;
 
         graphics = {
