@@ -58,7 +58,7 @@
 
             unstable.prismlauncher
 
-            unstable.freecad
+            freecad
             unstable.kicad
             unstable.orca-slicer
 
