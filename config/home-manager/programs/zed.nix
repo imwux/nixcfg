@@ -66,18 +66,6 @@
 
             disable_ai = true;
 
-            # Agent Servers
-            agent_servers = {
-                claude-acp = {
-                    type = "custom";
-                    command = "${pkgs.claude-agent-acp}/bin/claude-agent-acp";
-                };
-                codex-acp = {
-                    type = "custom";
-                    command = "${pkgs.codex-acp}/bin/codex-acp";
-                };
-            };
-
             # Language Servers
             languages = {
                 Nix.language_servers = [
@@ -116,6 +104,7 @@
                 gopls.binary.path = "${pkgs.gopls}/bin/gopls";
                 package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
                 pest.binary.path = "${pkgs.pest-ide-tools}/bin/pest-language-server";
+                starpls.binary.path = "${pkgs.starpls}/bin/starpls";
             };
         };
         userKeymaps = [
