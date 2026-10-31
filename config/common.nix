@@ -89,6 +89,10 @@
             git-filter-repo
         ];
 
+        home.sessionPath = [
+            "$HOME/.local/bin"
+        ];
+
         xdg.configFile."wgetrc".text = "hsts_file = \"~/.cache/wget-hsts\"";
     };
 }
