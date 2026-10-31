@@ -49,6 +49,7 @@ in
                     mode = "0700";
                 }
                 ".rustup"
+                ".claude"
 
                 # .config
                 ".config/aseprite"
