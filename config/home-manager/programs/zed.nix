@@ -38,7 +38,7 @@
                 shell.program = "/run/current-system/sw/bin/bash";
                 dock = "right";
                 env = rec {
-                    EDITOR = "zed --wait";
+                    EDITOR = "zeditor --wait";
                     VISUAL = EDITOR;
                 };
             };
@@ -105,6 +105,10 @@
                 package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
                 pest.binary.path = "${pkgs.pest-ide-tools}/bin/pest-language-server";
                 starpls.binary.path = "${pkgs.starpls}/bin/starpls";
+                luau-lsp.binary = {
+                    path = "${pkgs.luau-lsp}/bin/luau-lsp";
+                    arguments = [ "lsp" ];
+                };
             };
         };
         userKeymaps = [
